@@ -1,66 +1,84 @@
-# 📓 NHẬT KÝ LÀM VIỆC VỚI AI — LAB 8
+# NHẬT KÝ LÀM VIỆC VỚI AI — HCE SOULBOUND BADGE (ECO2432)
 
-**Dự án:** HCE Soulbound Achievement Badge (Đề tài 7)  
-**Nhóm:** Nhóm 07 — Lớp ECO2432  
-**Giai đoạn:** Lab 8 — Khởi tạo Codebase nhóm, Kế hoạch dự án, Đặc tả v0.1 và Quy tắc kinh tế  
+## Lab 08: Khởi tạo Codebase và Đặc tả v0.1 (Chủ đề 7: Huy hiệu thành tích không chuyển nhượng)
 
----
-
-## 📌 Lần 1 — Khởi tạo ý tưởng hợp đồng và chuẩn kỹ thuật
+### Lần 1: Yêu cầu AI sinh bản đặc tả và quy tắc kinh tế cho đề tài Huy hiệu thành tích không chuyển nhượng (SBT)
 - **Prompt:**
-  > "Tôi muốn làm một hệ thống cấp chứng nhận danh hiệu sinh viên cho nhà trường trên blockchain. Hãy viết cho tôi một hợp đồng token ERC-721 bằng Solidity để nhà trường mint cho sinh viên và sinh viên có thể chuyển nhượng hoặc giao dịch trên OpenSea."
+  ```text
+  Bạn là Chuyên viên Phân tích Nghiệp vụ (BA) Web3. Hãy đọc tài liệu học phần ECO2432 và viết docs/SPEC.md cùng docs/ECONOMIC_RULES.md cho Chủ đề 7: "Huy hiệu thành tích không chuyển nhượng" (chuẩn ERC-721 Soulbound).
+  Tuân thủ cấu trúc B.2 và Phần M.5 của Sổ tay thực hành ECO2432.
+  ```
 - **AI trả về:**
-  > AI cung cấp đoạn mã nguồn hợp đồng ERC-721 cơ bản thừa kế từ OpenZeppelin, cho phép hàm `mint(address to, uint256 tokenId)` và giữ nguyên các hàm `transferFrom`, `safeTransferFrom`, `approve` mặc định để người nhận có thể tự do giao dịch.
-- **Đánh giá:** ❌ **Sai, bỏ** (Sai hoàn toàn bản chất nghiệp vụ đề tài)
+  - AI sinh ra một hợp đồng ERC-721 thông thường với logic cấm chuyển nhượng sơ sài.
+  - Trong phần quy tắc kinh tế, AI đề xuất cơ chế "bán lại vé" và "thu phí hoa hồng chuyển nhượng 5%".
+- **Đánh giá:** ❌ Sai, bỏ.
 - **Chỗ sai:**
-  - AI đã nhầm lẫn giữa dự án NFT thương mại/sưu tầm với **Huy hiệu thành tích sinh viên**.
-  - Nếu sinh viên có thể chuyển nhượng hay bán huy hiệu trên sàn OpenSea thì sẽ xảy ra hiện tượng "mua bán bằng cấp, gian lận thành tích", làm mất hoàn toàn giá trị của đề tài 7 (Huy hiệu không chuyển nhượng - Soulbound Token).
+  1. *Lỗi hiểu sai bản chất đề tài:* Chủ đề 7 là **Huy hiệu thành tích không chuyển nhượng (SBT)**, không phải là Vé sự kiện có thể bán lại (Chủ đề 6). Huy hiệu thành tích là chứng nhận danh dự, miễn phí cho sinh viên và tuyệt đối không có tính năng bán lại hay thu phí giao dịch!
+  2. *Lỗi kỹ thuật nghiêm trọng trong logic cấm chuyển nhượng:* AI đề xuất chặn bằng cách viết `if (soulbound) revert NotTransferable();` trong toàn bộ hàm chuyển token. Nếu viết như vậy, ngay cả hàm `_mint` (cấp huy hiệu từ `address(0)`) cũng bị revert, khiến Nhà trường không thể cấp phát được bất kỳ huy hiệu nào cho sinh viên (Lỗi số 2 trong bảng cảnh báo M.5 của Sổ tay).
 - **Cách sửa:**
-  - Nhóm sinh viên đã yêu cầu AI hủy bỏ ý tưởng giao dịch tự do. Thay vào đó, áp dụng cơ chế **Soulbound Token (SBT / EIP-5114)**: ghi đè (override) hàm chuyển nhượng để chặn đứng mọi giao dịch mua bán giữa các ví sinh viên.
-- **Ai phát hiện:** **Sinh viên phát hiện** *(Sinh viên đối chiếu với yêu cầu đề tài 7 trong Sổ tay ECO2432)*.
+  1. Sinh viên viết lại toàn bộ bản đặc tả `docs/SPEC.md` và `docs/ECONOMIC_RULES.md`: Chuyển hoàn toàn sang mô hình "Nền kinh tế uy tín" (Reputation Economy), giá cấp phát 0 ETH, bảo đảm tính gắn liền danh tính cá nhân.
+  2. Thiết kế logic chặn chuẩn trong `_update`:
+     ```solidity
+     address from = _ownerOf(tokenId);
+     bool isTransfer = from != address(0) && to != address(0);
+     if (soulbound && isTransfer) revert NotTransferable();
+     ```
+     Chỉ chặn khi cả `from` và `to` đều khác `address(0)`, cho phép `mint` và `burn` hoạt động trơn tru.
+- **Ai phát hiện:** **Sinh viên phát hiện** *(Điểm cốt lõi thể hiện sự hiểu sâu bản chất nghiệp vụ và chuẩn OpenZeppelin v5).*
 
 ---
 
-## 📌 Lần 2 — Kiểm tra phiên bản OpenZeppelin và cơ chế chặn chuyển nhượng
+### Lần 2: Yêu cầu AI phản biện mô hình kinh tế theo vai "Người dùng thận trọng"
 - **Prompt:**
-  > "Viết cho tôi hàm chặn chuyển nhượng trong OpenZeppelin ERC-721 để biến token thành Soulbound Token."
-- **AI trả về:**
-  > AI sinh mã sử dụng hook `_beforeTokenTransfer`:
-  > ```solidity
-  > function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize) internal override {
-  >     require(from == address(0) || to == address(0), "Token is soulbound");
-  >     super._beforeTokenTransfer(from, to, tokenId, batchSize);
-  > }
-  > ```
-- **Đánh giá:** ⚠️ **Phải sửa** (Lỗi phiên bản thư viện nghiêm trọng)
-- **Chỗ sai:**
-  - Dự án quy định trong `AGENTS.md` bắt buộc sử dụng **OpenZeppelin Contracts phiên bản 5.x**.
-  - Trong OpenZeppelin phiên bản 5.x, hàm `_beforeTokenTransfer` đã bị **xóa bỏ hoàn toàn**, nếu sử dụng sẽ gây lỗi biên dịch (`TypeError: Function not found or not visible after argument-dependent lookup`).
-- **Cách sửa:**
-  - Sinh viên chỉ ra quy ước dự án và yêu cầu AI chuyển sang sử dụng hàm `_update(address to, uint256 tokenId, address auth)` của OpenZeppelin v5:
-  > ```solidity
-  > function _update(address to, uint256 tokenId, address auth) internal override returns (address) {
-  >     address from = _ownerOf(tokenId);
-  >     bool isTransfer = from != address(0) && to != address(0);
-  >     if (isTransfer) revert NotTransferable();
-  >     return super._update(to, tokenId, auth);
-  > }
-  > ```
-- **Ai phát hiện:** **Sinh viên phát hiện** *(Sinh viên kiểm tra tài liệu OpenZeppelin v5 và mục B.4 trong Sổ tay ECO2432)*.
+  ```text
+  Bạn là người dùng thận trọng. Chỉ dựa trên SPEC và ECONOMIC_RULES dưới đây, hãy nêu 5 cách một người có thể lạm dụng quy tắc hoặc làm người khác bị thiệt. Với mỗi cách, chỉ rõ quy tắc nào chưa đủ chặt. Không viết mã.
+  [Dán nội dung SPEC.md và ECONOMIC_RULES.md của Chủ đề 7]
+  ```
+- **AI trả về:** Nêu 5 điểm nghi vấn (bán private key, lạm phát số lượng, cấp trùng, quyền thu hồi, link ảnh 404).
+- **Đánh giá:** ✅ Dùng được rất tốt.
+- **Cách sửa của nhóm:** Bổ sung `maxSupply`, mapping `hasBadge`, quyền `revokeBadge` đính kèm số quyết định kỷ luật.
+- **Ai phát hiện:** Công cụ AI gợi ý phản biện $\rightarrow$ Sinh viên thẩm định và thiết kế lời giải.
 
 ---
 
-## 📌 Lần 3 — Phản biện mô hình kinh tế và quyền riêng tư (Stress Testing)
-- **Prompt:** (Sử dụng đúng prompt mẫu chuẩn I.6 trong Sổ tay)
-  > "Bạn là nhà đầu tư thận trọng đang xem xét dự án này. Dưới đây là mô tả quy tắc kinh tế của dự án HCE Soulbound Achievement Badge. Hãy nêu 5 điểm yếu nghiêm trọng nhất, xếp theo mức rủi ro giảm dần. Với mỗi điểm, nêu một tình huống cụ thể mà người dùng bị thiệt hại. Không cần đề xuất giải pháp, tôi muốn nghe phần phê bình. [dán nội dung dự thảo ECONOMIC_RULES.md]"
+## Lab 09: Hợp đồng đầu tiên: Két tiết kiệm có khóa thời gian & Chuyển giao vào ProjectCore
+
+### Lần 1: Yêu cầu AI sinh mã TimeLockVault.sol theo SPEC.md và AGENTS.md
+- **Prompt:**
+  ```text
+  Viết hợp đồng Solidity theo SPEC.md, tuân thủ AGENTS.md.
+  Giải thích lựa chọn thiết kế trước khi đưa mã nguồn.
+  ```
 - **AI trả về:**
-  > AI chỉ ra 5 nguy cơ thực tế:
-  > 1. Bán cả chiếc ví (Private Key Trading).
-  > 2. Admin lạm quyền thu hồi danh hiệu bất chính.
-  > 3. Tắc nghẽn mạng và chi phí gas cao khi trao giải hàng loạt.
-  > 4. Cấp nhầm vào địa chỉ ví không tồn tại dẫn đến mất chỉ tiêu vĩnh viễn.
-  > 5. Nguy cơ vi phạm bảo mật dữ liệu cá nhân nếu ghi tên, CCCD trực tiếp on-chain.
-- **Đánh giá:** ✅ **Dùng được**
-- **Cách áp dụng:**
-  - Nhóm sinh viên đã tiếp thu toàn bộ 5 phản biện này và viết trực tiếp phần phản hồi, các giải pháp kỹ thuật cụ thể (hashing danh tính, cơ chế cấp theo lô `issueBatch`, cơ chế thu hồi minh bạch có lý do `revokeBadge`) vào mục 5 của tệp `docs/ECONOMIC_RULES.md`.
-- **Ai phát hiện:** **AI đề xuất phản biện, Sinh viên phân tích và ra quyết định xử lý**.
+  ```solidity
+  function withdraw() external {
+      require(msg.sender == owner, "Only owner");
+      require(block.timestamp >= unlockTime, "Locked");
+      payable(owner).transfer(address(this).balance);
+  }
+  ```
+- **Đánh giá:** ❌ Sai, bỏ.
+- **Chỗ sai:**
+  1. Dùng `transfer()` cứng 2.300 gas thay vì `.call{value: amount}("")`.
+  2. Dùng chuỗi thông báo trong `require()` thay vì custom error `error NotOwner()`, `error StillLocked()`.
+  3. Không tuân thủ thứ tự Checks-Effects-Interactions (không phát event hoặc không cập nhật trạng thái trước khi tương tác).
+- **Cách sửa:** Sinh viên đối chiếu với bản mẫu chuẩn của giảng viên trong Sổ tay Lab 9: thay thế bằng custom error có tham số, phát event `Withdrawn` trước khi chuyển tiền, và dùng `call` kèm kiểm tra boolean `ok`.
+- **Ai phát hiện:** **Sinh viên phát hiện**.
+
+---
+
+### Lần 2: Chuyển giao 4 kỹ thuật cốt lõi vào hợp đồng nhóm `ProjectCore.sol`
+- **Prompt:**
+  ```text
+  Áp dụng 4 kỹ thuật vừa học từ TimeLockVault (Phân quyền, Event có indexed, Custom error, Checks-Effects-Interactions) để viết hợp đồng lõi ProjectCore.sol cho Chủ đề 7: Huy hiệu thành tích không chuyển nhượng (ERC-721 Soulbound). Độ dài dưới 120 dòng.
+  ```
+- **AI trả về:**
+  - Hợp đồng kế thừa `ERC721` và `Ownable` từ OpenZeppelin v5.
+  - Sử dụng hàm ghi đè `_update` để chặn chuyển nhượng khi `soulbound == true`.
+  - Có các hàm: `issueBadge()`, `revokeBadge()`, `verifyBadge()`.
+- **Đánh giá:** ✅ Dùng được, biên dịch thành công 100% trên Remix VM.
+- **Ghi nhận học thuật:** Nhóm đã áp dụng trọn vẹn:
+  1. *Phân quyền:* `onlyOwner` bảo vệ quyền cấp phát và thu hồi của Nhà trường.
+  2. *Sự kiện:* `BadgeIssued` và `BadgeRevoked` có `indexed` giúp lọc dữ liệu on-chain theo địa chỉ sinh viên.
+  3. *Custom Errors:* `SoldOut()`, `AlreadyClaimed()`, `NotTransferable()`, `InvalidRecipient()`, `NotFound()`.
+  4. *Checks-Effects-Interactions:* Kiểm tra điều kiện $\rightarrow$ gán `hasBadge = true`, tăng `nextTokenId` $\rightarrow$ gọi `_safeMint()`.
