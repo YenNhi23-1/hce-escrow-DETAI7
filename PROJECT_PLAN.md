@@ -50,3 +50,43 @@ Nhóm gồm **02 thành viên bình đẳng**, không phân chia trưởng nhóm
 - **Lab 13 (Buổi 13):** Thực nghiệm tấn công Reentrancy và kiểm thử các ca gian lận/vượt quyền đối với hợp đồng của nhóm (`lab-13: them negative test va hardening`).
 - **Lab 14 (Buổi 14):** Rà soát chéo (Audit chéo) với repo của nhóm khác, lập biên bản `AUDIT_REPORT.md` (`lab-14: xu ly ket qua audit cheo`).
 - **Lab 15 (Buổi 15):** Hoàn thiện giao diện Web DApp, kết nối hợp đồng trên mạng Sepolia, deploy GitHub Pages và lập kế hoạch thuyết trình (`lab-15: public dapp va presentation plan`, tag `v0.1-demo`).
+
+---
+
+## 🚀 4. Cập nhật và quyết định phạm vi sau Cổng duyệt 1 (Gate Review 1 Scope Update)
+
+Sau khi hoàn thành phiên bảo vệ **Cổng duyệt 1 (Gate Review 1)** tại Buổi 12 trước giảng viên bộ môn, nhóm đã tiếp thu đầy đủ nhận xét, đánh giá và chính thức cập nhật phạm vi triển khai dự án theo đúng nguyên tắc chỉ đạo: **"Giữ một luồng cốt lõi chạy chắc, không cố giữ nhiều tính năng nửa vời"**.
+
+### 🏆 4.1. Kết luận chính thức từ Giảng viên tại Cổng duyệt 1
+- **Kết quả nghiệm thu:** **ĐẠT (PASS)** — Đạt 100% tiêu chí sức khỏe repository.
+- **Đánh giá mã nguồn & Demo:**
+  - Logic hợp đồng `ProjectCore.sol` bám sát đặc tả kỹ thuật `SPEC.md` và quy tắc kinh tế `ECONOMIC_RULES.md`.
+  - Kịch bản demo 3 phút thực hiện chuẩn xác: Cấp phát huy hiệu thành công trên Remix VM và chặn đứng hành vi chuyển nhượng trái phép với lỗi đỏ `revert NotTransferable()`.
+  - Phân công phối hợp giữa hai bạn **Hoàng Thu Trang** và **Phan Thị Yến Nhi** nhịp nhàng, có commit đóng góp đồng đều từ cả hai thành viên.
+
+### ⚖️ 4.2. Quyết định phạm vi sau duyệt (Scope Decisions)
+
+| Phân loại | Tính năng / Hạng mục | Quyết định & Căn cứ kỹ thuật |
+| :--- | :--- | :--- |
+| **GIỮ LẠI (Core In-Scope)** | • Cấp phát Soulbound Token (`issueBadge`) theo vai trò Admin/Issuer<br>• Khóa chuyển nhượng bất biến qua `_update`<br>• Tra cứu hồ sơ năng lực công khai, không tốn gas<br>• Thu hồi huy hiệu (`revokeBadge`) khi vi phạm học thuật | **Trọng tâm cốt lõi:** Đây là các tính năng bắt buộc nhằm giải quyết triệt để vấn đề gian lận bằng khen và nạn thương mại hóa danh hiệu học thuật. |
+| **CẮT BỎ (Descoping / Out-of-Scope)** | • Sàn giao dịch / Mua bán danh hiệu NFT<br>• Đấu giá / Cho thuê chứng chỉ<br>• Tokenomics điểm thưởng tài chính phức tạp | **Loại bỏ hoàn toàn:** Tránh nguy cơ biến tướng sang đầu cơ tài chính, vi phạm triết lý không chuyển nhượng của Soulbound Token và làm loãng nguồn lực dự án. |
+
+### 📋 4.3. Phân công chi tiết và kế hoạch hành động chặng cuối (Lab 13 – Lab 15)
+
+Hai thành viên tiếp tục duy trì mô hình đồng hành (Pair Programming & Co-working), phân bổ trọng tâm cụ thể như sau:
+
+1. **Lab 13 (Buổi 13) — Kiểm thử an toàn & Tối ưu Hardening:**
+   - **Nội dung:** Viết tối thiểu 2 ca kiểm thử tiêu cực (negative tests) trong thư mục `test/` nhằm kiểm tra khả năng chặn tấn công Reentrancy và truy cập trái phép non-owner; tối ưu hóa mã nguồn `ProjectCore.sol`.
+   - **Thành viên thực hiện:** Hoàng Thu Trang & Phan Thị Yến Nhi đồng thực hiện.
+   - **Commit chuẩn:** `lab-13: them negative test va hardening`.
+
+2. **Lab 14 (Buổi 14) — Audit chéo (Rà soát bảo mật chéo):**
+   - **Nội dung:** Xây dựng danh mục 10 tiêu chí rà soát an toàn; tiến hành audit chéo repository với nhóm bạn; lập biên bản `docs/AUDIT_REPORT.md` ghi nhận các lỗ hổng và phương án khắc phục.
+   - **Thành viên thực hiện:** Hoàng Thu Trang & Phan Thị Yến Nhi đồng thực hiện.
+   - **Commit chuẩn:** `lab-14: xu ly ket qua audit cheo`.
+
+3. **Lab 15 (Buổi 15) — Triển khai công khai & Thuyết trình cuối kỳ:**
+   - **Nội dung:** Kết nối hợp đồng thông minh lên mạng thử nghiệm Ethereum Sepolia testnet; hoàn thiện giao diện DApp Web3 (`web/index.html`); xuất bản trang web công khai qua GitHub Pages; lập kế hoạch thuyết trình `docs/PRESENTATION_PLAN.md` và gắn tag phát hành `v0.1-demo`.
+   - **Thành viên thực hiện:** Hoàng Thu Trang & Phan Thị Yến Nhi đồng thực hiện.
+   - **Commit chuẩn:** `lab-15: public dapp va presentation plan`.
+
