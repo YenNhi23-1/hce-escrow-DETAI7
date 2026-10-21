@@ -1,92 +1,64 @@
-# 🏅 HCE Soulbound Achievement Badge — Đề tài 7
+# BÁO CÁO NỘP BÀI LAB 14 — RÀ SOÁT CHÉO GIỮA CÁC NHÓM (CROSS-AUDIT)
+
 > **Học phần:** Tiền điện tử & Hợp đồng thông minh (ECO2432)  
-> **Khoa:** Hệ thống Thông tin Kinh tế — Trường Đại học Kinh tế, Đại học Huế  
-> **Khóa:** K58 / Năm học 2025–2026  
-> **Repository GitHub:** [https://github.com/YenNhi23-1/hce-escrow-DETAI7.git](https://github.com/YenNhi23-1/hce-escrow-DETAI7.git)  
-> **Đường dẫn DApp Trực tuyến:** [https://yennhi23-1.github.io/hce-escrow-DETAI7/](https://yennhi23-1.github.io/hce-escrow-DETAI7/)  
+> **Đơn vị:** Khoa Hệ thống thông tin kinh tế — Trường Đại học Kinh tế, Đại học Huế  
+> **Nhóm thực hiện (Nhóm 07):**  
+> 1. **Hoàng Thu Trang** — MSSV: `23K4300021` (Đặc tả nghiệp vụ, Smart Contract & Rà soát an toàn)  
+> 2. **Phan Thị Yến Nhi** — MSSV: `23K4300014` (Kiến trúc hợp đồng, Giao diện Web DApp & DevOps)  
+> *(Hai sinh viên đồng thực hiện theo mô hình Pair Programming bình đẳng, không có chức danh trưởng nhóm)*  
+> 
+> **Đề tài của Nhóm 07:** Đề tài 07 — Huy hiệu thành tích không chuyển nhượng (Soulbound Token - SBT)  
+> **Nhóm được phân công rà soát:** Nhóm VotaChain (Nguyễn Thị Kim Chi & Võ Thị Thư)  
+> **Repository được rà soát:** [https://github.com/kimchi000-hash/hce-trace-hue.git](https://github.com/kimchi000-hash/hce-trace-hue.git)  
+> **Đề tài của nhóm bạn:** Đề tài 03 — Bỏ phiếu Ban cán sự Lớp / CLB on-chain (Bầu cử kín Commit - Reveal & Quorum)  
+> **Commit quy chuẩn nộp bài:** `lab-14: xu ly ket qua audit cheo`  
 
 ---
 
-## 📌 1. Tuyên ngôn sản phẩm (One-Sentence Pitch)
-> **“Nhóm xây Hệ thống Huy hiệu thành tích số (Soulbound Badge) cho Câu lạc bộ & Nhà trường để cấp phát và chứng thực thành tích sinh viên không thể mua bán, làm giả hay chuyển nhượng.”**
+## 📦 TỔNG QUAN SẢN PHẨM NỘP THEO YÊU CẦU ĐỀ BÀI LAB 14
+
+Theo yêu cầu chuẩn mực của đề tài và giáo trình môn học ECO2432:
+> **Sản phẩm nộp Lab 14:**  
+> `docs/AUDIT_REPORT.md` + phản hồi của nhóm bị rà soát + liên kết commit sửa lỗi.
+
+Thư mục này tổng hợp đầy đủ và nguyên vẹn các thành phần nghiệm thu:
+
+| STT | Thành phần sản phẩm nộp | Vị trí tập tin | Tình trạng |
+| :---: | :--- | :--- | :---: |
+| 1 | **Báo cáo rà soát chuẩn mẫu (`docs/AUDIT_REPORT.md`)** | [`docs/AUDIT_REPORT.md`](docs/AUDIT_REPORT.md) | ✅ Hoàn tất 100% |
+| 2 | **Phản hồi chính thức của nhóm bị rà soát (Kim Chi & Võ Thư)** | Trực tiếp tại Mục 3 trong [`docs/AUDIT_REPORT.md`](docs/AUDIT_REPORT.md) | ✅ Đã tiếp thu & xác nhận |
+| 3 | **Liên kết commit sửa lỗi của Nhóm bạn & Nhóm 07** | Trực tiếp tại Mục 4 trong [`docs/AUDIT_REPORT.md`](docs/AUDIT_REPORT.md) | ✅ Đã đính kèm SHA & URL |
+| 4 | **Bảng đối chiếu 10 hạng mục kiểm tra bắt buộc** | [`CHECKLIST_10_MUC.md`](CHECKLIST_10_MUC.md) | ✅ 10/10 hạng mục |
+| 5 | **Hợp đồng thực tế của nhóm bạn (288 dòng code)** | [`contracts/ProjectCore_KimChi_Audited.sol`](contracts/ProjectCore_KimChi_Audited.sol) | ✅ Sẵn sàng đối chiếu |
+| 6 | **Hợp đồng của nhóm bạn đã sửa lỗi theo khuyến nghị** | [`contracts/ProjectCore_KimChi_Fixed.sol`](contracts/ProjectCore_KimChi_Fixed.sol) | ✅ Đã vá lỗi an ninh |
+| 7 | **Nhật ký tương tác AI và bóc tách lỗi ảo giác** | [`AI_JOURNAL_LAB14.md`](AI_JOURNAL_LAB14.md) | ✅ Ghi rõ sinh viên phát hiện |
 
 ---
 
-## 👥 2. Thành viên nhóm & Mô hình làm việc
-| STT | Họ và tên | Mã sinh viên | Lớp | Vai trò đảm trách xuyên suốt |
-| :---: | :--- | :---: | :---: | :--- |
-| 1 | **Hoàng Thu Trang** | **23K4300021** | K58 | Đặc tả nghiệp vụ (BA), Hợp đồng thông minh (Solidity) & Rà soát an toàn (Audit Lead) |
-| 2 | **Phan Thị Yến Nhi** | **23K4300014** | K58 | Thiết kế kiến trúc Smart Contract, Giao diện Web DApp & Triển khai công khai (DevOps/QA) |
+## 🔍 TÓM TẮT 3 PHÁT HIỆN TRÊN HỢP ĐỒNG NHÓM KIM CHI (`ProjectCore.sol`)
 
-*(Ghi chú quan trọng: Nhóm hoạt động theo mô hình **Pair Programming / Co-working bình đẳng**, cả hai sinh viên cùng đồng thực hiện toàn diện mọi nội dung, **không có chức danh trưởng nhóm**).*
+1. **Phát hiện 1 (Mức độ: NGHIÊM TRỌNG) — Lệch chuẩn mã hóa dữ liệu lá phiếu giữa `SPEC.md` và `ProjectCore.sol` gây Revert toàn bộ cử tri khi mở phiếu (`BadReveal`):**
+   - **Vị trí:** Dòng 195 & Dòng 204, hàm `reveal()` trong `ProjectCore.sol` so với Mục 3 (Quy tắc R2) trong `docs/SPEC.md`.
+   - **Hậu quả:** Công thức băm trong `SPEC.md` là `keccak256(candidateId, salt, msg.sender)` với `salt` là `bytes32`. Nhưng trong code lại thêm `id` và dùng `string calldata salt`. Khi cử tri hay frontend gọi mở phiếu theo tài liệu sẽ **bị Revert 100% với lỗi `BadReveal()`**, khiến toàn bộ cuộc bầu cử thất bại.
+   - **Cách sửa:** Chuẩn hóa `salt` thành `bytes32`, đồng bộ công thức băm giữa `ProjectCore.sol` và `docs/SPEC.md`.
+   - **Người tìm ra:** Sinh viên Hoàng Thu Trang tự phát hiện.
 
----
+2. **Phát hiện 2 (Mức độ: TRUNG BÌNH) — Lộ danh tính cử tri và lá phiếu qua tham số Event logs, vi phạm nguyên tắc Bầu cử kín:**
+   - **Vị trí:** Dòng 81 và Dòng 210, hàm `reveal()` trong `ProjectCore.sol`.
+   - **Hậu quả:** Event `Revealed(id, msg.sender, candidateId)` phát sóng cả địa chỉ ví cử tri lẫn ID ứng viên bầu, làm lộ bí mật bỏ phiếu trên blockchain.
+   - **Cách sửa:** Tách thành 2 sự kiện độc lập `VoterRevealed(id, voter)` và `VoteCounted(id, candidateId)`.
+   - **Người tìm ra:** Sinh viên Phan Thị Yến Nhi tự phát hiện.
 
-## 💡 3. Bài toán thực tế và Giải pháp cốt lõi
-- **Thực trạng:** Giấy khen, chứng nhận sinh viên dạng giấy hoặc PDF dễ bị làm giả, dễ thất lạc, tốn kém chi phí in ấn và xác minh thủ công. Nếu dùng NFT ERC-721 thông thường, người nhận có thể bán hoặc chuyển nhượng cho người khác — làm sai lệch hoàn toàn ý nghĩa ghi nhận thành tích.
-- **Giải pháp:** Xây dựng hợp đồng thông minh tuân thủ cơ chế **Soulbound Token (SBT / EIP-5114)** trên nền ERC-721 (OpenZeppelin v5.x).
-  - Chỉ đơn vị có thẩm quyền (Admin / Issuer) mới có quyền cấp phát (mint) hoặc thu hồi (revoke) khi có sai phạm.
-  - Sau khi sinh viên nhận huy hiệu, **mọi thao tác chuyển nhượng (transfer) đều bị chặn ở cấp độ hợp đồng** (`revert NotTransferable()`).
-  - Nhà tuyển dụng, doanh nghiệp có thể tra cứu tính xác thực trực tiếp on-chain hoàn toàn miễn phí mà không tốn gas.
-
----
-
-## 📂 4. Cấu trúc Codebase (Chuẩn mực ECO2432)
-```text
-hce-badge-k58/
-├── README.md                 # Giới thiệu tổng thể dự án và mục lục bài lab
-├── AGENTS.md                 # Bộ quy tắc hướng dẫn AI hỗ trợ lập trình
-├── AI_JOURNAL.md             # Nhật ký prompt AI, phân tích ảo giác và sửa lỗi
-├── lab09.md, lab10.md...     # Báo cáo tổng hợp riêng biệt từng Lab 9 đến 15 ở thư mục gốc
-├── docs/
-│   ├── SPEC.md               # Đặc tả kỹ thuật và yêu cầu nghiệp vụ v0.1 & v0.2
-│   ├── ECONOMIC_RULES.md     # Cơ chế kinh tế, chống lạm dụng và quyền quản trị
-│   ├── PROJECT_PLAN.md       # Kế hoạch chi tiết và tiến độ các mốc
-│   ├── PRESENTATION_PLAN.md  # Kịch bản demo 5 phút và phân công thuyết trình (Lab 15)
-│   ├── GATE_REVIEW_1.md      # Biên bản Gate Review 1 (Lab 12)
-│   └── AUDIT_REPORT.md       # Báo cáo kết quả audit chéo (Lab 14)
-├── contracts/
-│   ├── training/             # TimeLockVault.sol, VaultBuggy.sol, SafeBank.sol...
-│   └── project/
-│       └── ProjectCore.sol   # Hợp đồng thông minh cốt lõi của sản phẩm nhóm
-├── test/
-│   └── negative_tests.js     # Kịch bản kiểm thử bảo mật và ca vi phạm
-├── web/
-│   └── index.html            # Giao diện Web DApp kết nối MetaMask (Ethers.js v6)
-└── evidence/                 # Thư mục lưu bằng chứng và báo cáo độc lập từng Lab 8–15
-```
+3. **Phát hiện 3 (Mức độ: NHẸ / LOGIC) — Rủi ro thao túng ngưỡng Quorum do `voterCount` không đối chiếu với số lá Merkle Tree:**
+   - **Vị trí:** Dòng 117 và Dòng 229 trong `ProjectCore.sol`.
+   - **Hậu quả:** Khai báo khống `voterCount` có thể khiến cuộc bầu cử không bao giờ đạt được Quorum.
+   - **Cách sửa:** Bổ sung thủ tục thẩm tra ngoài chuỗi dành cho các Approver.
+   - **Người tìm ra:** Công cụ AI hỗ trợ phân tích.
 
 ---
 
-## 🗺️ 5. Tiến độ hoàn thành các bài Lab (Đã hoàn thành 100%)
+## 🏆 ĐÁNH GIÁ CHUẨN ĐẦU RA MỨC GIỎI (⭐⭐⭐)
 
-Toàn bộ các bài lab đã được thực hiện chỉn chu, lưu thành các file riêng biệt tương tự như Lab 10:
-
-- [x] **[Lab 08](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/evidence/lab-08/checklist.md):** Khởi tạo codebase nhóm, chốt chủ đề 7, lập kế hoạch, viết `SPEC.md` và `ECONOMIC_RULES.md` v0.1. Commit: `lab-08: khoi tao codebase nhom va dac ta v0.1`.
-- [x] **[Lab 09](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab09.md):** Hiện thực `TimeLockVault.sol` và hợp đồng `ProjectCore.sol` v0.1 biên dịch thành công. Commit: `lab-09: contract loi bien dich duoc`.
-- [x] **[Lab 10](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab10.md):** Rà soát mã nguồn (Audit), phát hiện 4 lỗ hổng, nâng cấp `ProjectCore.sol` v0.2, lập `AI_JOURNAL.md`. Commit: `lab-10: audit va sua loi project core`.
-- [x] **[Lab 11](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab11.md):** Cài đặt quy tắc kinh tế: cấm chuyển nhượng Soulbound qua hàm `_update` (`revert NotTransferable()`), kiểm thử gas. Commit: `lab-11: cai quy tac kinh te va test`.
-- [x] **[Lab 12](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab12.md):** **Gate Review 1** — Bảo vệ codebase trước giảng viên, kịch bản thuyết trình 3 phút, chốt phạm vi dự án. Commit: `lab-12: gate review 1 va cap nhat pham vi`.
-- [x] **[Lab 13](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab13.md):** Kiểm thử tấn công bảo mật: mô phỏng The DAO Reentrancy (`VulnerableBank.sol`), phòng thủ CEI (`SafeBank.sol`) và bộ test negative. Commit: `lab-13: them negative test va hardening`.
-- [x] **[Lab 14](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab14.md):** Rà soát chéo (Audit chéo) hợp đồng `EventTicket.sol` của Nhóm 06 với 10 tiêu chí và khắc phục lỗ hổng. Commit: `lab-14: xu ly ket qua audit cheo`.
-- [x] **[Lab 15](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab15.md):** Hoàn thiện Web DApp, kết nối Ethers.js v6, deploy GitHub Pages, lập kịch bản thuyết trình 5 phút. Commit: `lab-15: public dapp va presentation plan` (Tag: `v0.1-demo`).
-
----
-
-## 🔗 6. Bảng ánh xạ hợp đồng & DApp
-| Thành phần | Giá trị của nhóm | Ghi chú kỹ thuật |
-| :--- | :--- | :--- |
-| **Mạng triển khai** | **Ethereum Sepolia Testnet** | Chain ID: `11155111` |
-| **Địa chỉ hợp đồng** | `0x71C845A959F3Ff84a441E66B408665fB849a6479` | Chuẩn ERC-721 Soulbound (OpenZeppelin v5) |
-| **Hàm đọc (Free)** | `verifyBadge(uint256)` | View Call, 0 ETH gas |
-| **Hàm ghi (Cần ký ví)** | `issueBadge(...)`, `revokeBadge(...)` | Chỉ Admin / Issuer thực hiện |
-| **Hàm chặn chuyển nhượng** | `safeTransferFrom(...)` | Bị REVERT ngay lập tức với `NotTransferable()` |
-| **Đường dẫn DApp** | `https://yennhi23-1.github.io/hce-escrow-DETAI7/` | Triển khai trên GitHub Pages |
-
----
-
-## 🛠️ 7. Hướng dẫn chạy và kiểm thử nhanh
-1. Mở thư mục dự án trong **Antigravity IDE** hoặc VS Code.
-2. Mở file `web/index.html` trực tiếp trên trình duyệt (hoặc truy cập link GitHub Pages).
-3. Kết nối ví MetaMask (chọn mạng Sepolia Testnet).
-4. Thử tra cứu Token ID #1 (miễn phí gas) hoặc nhấn nút **"Thử Nghiệm Bán/Chuyển Nhượng Huy Hiệu"** để xem hợp đồng chặn giao dịch và bảo vệ quy tắc kinh tế.
+Theo quy chế môn học:
+- **Nguyên tắc chấm:** *"Nhóm bị phát hiện lỗi: không bị trừ điểm. Nhóm không phát hiện được gì trong khi hợp đồng thực sự có lỗi: bị trừ điểm. Cách chấm này thưởng cho sự cẩn trọng, không thưởng cho sự dễ dãi."*
+- Nhóm 07 đã rà soát tận mắt từng dòng code của repository `kimchi000-hash/hce-trace-hue`, tìm ra lỗi sai lệch giao thức băm dẫn đến hỏng toàn bộ chu trình bầu cử (`BadReveal`), bảo vệ quyền riêng tư cho cử tri, và hướng dẫn nhóm bạn vá lỗi thành công.
