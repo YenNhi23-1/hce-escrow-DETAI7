@@ -1,91 +1,92 @@
-# BÁO CÁO NỘP BÀI LAB 15 — GIAO DIỆN WEB VÀ ĐƯA SẢN PHẨM LÊN MẠNG (PUBLIC DAPP & PRESENTATION PLAN)
-
+# 🏅 HCE Soulbound Achievement Badge — Đề tài 7
 > **Học phần:** Tiền điện tử & Hợp đồng thông minh (ECO2432)  
-> **Đơn vị:** Khoa Hệ thống thông tin kinh tế — Trường Đại học Kinh tế, Đại học Huế  
-> **Đề tài 07:** Huy hiệu thành tích không chuyển nhượng (Non-transferable Achievement Badge / Soulbound Token - SBT)  
-> **Nhóm sinh viên thực hiện:**  
-> 1. **Hoàng Thu Trang** — MSSV: `23K4300021` (Đặc tả nghiệp vụ, Smart Contract, Xử lý lỗi Web3 & Kịch bản thuyết trình)  
-> 2. **Phan Thị Yến Nhi** — MSSV: `23K4300014` (Kiến trúc hợp đồng, Giao diện Web DApp, Triển khai GitHub Pages & DevOps)  
-> *(Hai sinh viên đồng thực hiện theo mô hình Pair Programming bình đẳng, không có chức danh trưởng nhóm)*  
-> **Git Commit Message:** `lab-15: public dapp va presentation plan`  
-> **Git Tag Release:** `v0.1-demo`  
+> **Khoa:** Hệ thống Thông tin Kinh tế — Trường Đại học Kinh tế, Đại học Huế  
+> **Khóa:** K58 / Năm học 2025–2026  
+> **Repository GitHub:** [https://github.com/YenNhi23-1/hce-escrow-DETAI7.git](https://github.com/YenNhi23-1/hce-escrow-DETAI7.git)  
+> **Đường dẫn DApp Trực tuyến:** [https://yennhi23-1.github.io/hce-escrow-DETAI7/](https://yennhi23-1.github.io/hce-escrow-DETAI7/)  
 
 ---
 
-## 📦 SẢN PHẨM NỘP BẮT BUỘC THEO ĐỀ BÀI LAB 15
-
-Theo yêu cầu chuẩn mực tại Trang 34–35 Sổ tay thực hành và hình ảnh đề bài:
-> **Sản phẩm nộp Lab 15:**
-> - **URL công khai mở được trên điện thoại và một mã giao dịch từ DApp.**
-> - **`docs/PRESENTATION_PLAN.md` có thời lượng và vai của từng thành viên.**
-> - **Commit `lab-15: public dapp va presentation plan` và tag `v0.1-demo`.**
-
-Nhóm đã hoàn thành trọn vẹn và nghiệm thu các thành phần như sau:
+## 📌 1. Tuyên ngôn sản phẩm (One-Sentence Pitch)
+> **“Nhóm xây Hệ thống Huy hiệu thành tích số (Soulbound Badge) cho Câu lạc bộ & Nhà trường để cấp phát và chứng thực thành tích sinh viên không thể mua bán, làm giả hay chuyển nhượng.”**
 
 ---
 
-### 🌐 1. URL CÔNG KHAI VÀ MÃ GIAO DỊCH TỪ DAPP
+## 👥 2. Thành viên nhóm & Mô hình làm việc
+| STT | Họ và tên | Mã sinh viên | Lớp | Vai trò đảm trách xuyên suốt |
+| :---: | :--- | :---: | :---: | :--- |
+| 1 | **Hoàng Thu Trang** | **23K4300021** | K58 | Đặc tả nghiệp vụ (BA), Hợp đồng thông minh (Solidity) & Rà soát an toàn (Audit Lead) |
+| 2 | **Phan Thị Yến Nhi** | **23K4300014** | K58 | Thiết kế kiến trúc Smart Contract, Giao diện Web DApp & Triển khai công khai (DevOps/QA) |
 
-#### 1.1. Đường dẫn DApp trực tuyến (Mở được ngay trên điện thoại di động)
-- **URL công khai (GitHub Pages):**  
-  👉 **[https://yennhi23-1.github.io/hce-escrow-DETAI7/](https://yennhi23-1.github.io/hce-escrow-DETAI7/)**  
-  *(Đã kiểm thử responsive 100% trên Safari iOS, Chrome Android và trình duyệt tích hợp của MetaMask Mobile App).*
-- **Mã nguồn Repository:**  
-  👉 **[https://github.com/YenNhi23-1/hce-escrow-DETAI7.git](https://github.com/YenNhi23-1/hce-escrow-DETAI7.git)**
-
-#### 1.2. Mã băm giao dịch (TxHash) từ DApp trên mạng Sepolia Testnet
-- **Mạng thử nghiệm:** **Ethereum Sepolia Testnet** (Chain ID: `11155111` / `0xaa36a7`)
-- **Địa chỉ Smart Contract (`ProjectCore.sol`):**  
-  `0x71C845A959F3Ff84a441E66B408665fB849a6479`
-- **Mã giao dịch phát hành (Mint SBT on-chain):**  
-  [`0x9a83b27e8a946e31b67f13da2ef84a7e94f0923e1f579893d390a184e5b61e0b`](https://sepolia.etherscan.io/tx/0x9a83b27e8a946e31b67f13da2ef84a7e94f0923e1f579893d390a184e5b61e0b)  
-  *Nội dung:* Issuer cấp phát Huy hiệu Thành tích "Sinh viên 5 Tốt cấp Trường" cho ví sinh viên K58.
-- **Mã giao dịch kiểm thử phủ định (Negative Test Reverted):**  
-  [`0x7f3c4d1b8e45a90e34c9f1a2b3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2`](https://sepolia.etherscan.io/tx/0x7f3c4d1b8e45a90e34c9f1a2b3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2)  
-  *Nội dung:* Sinh viên cố tình gọi lệnh `safeTransferFrom` để bán huy hiệu, hợp đồng đã `revert NotTransferable()` thành công on-chain.
+*(Ghi chú quan trọng: Nhóm hoạt động theo mô hình **Pair Programming / Co-working bình đẳng**, cả hai sinh viên cùng đồng thực hiện toàn diện mọi nội dung, **không có chức danh trưởng nhóm**).*
 
 ---
 
-### 🎤 2. KẾ HOẠCH TRÌNH BÀY SẢN PHẨM (`docs/PRESENTATION_PLAN.md`)
-Tệp [`docs/PRESENTATION_PLAN.md`](docs/PRESENTATION_PLAN.md) được xây dựng chuẩn mực theo khung Phần C.4 của Sổ tay thực hành, phân chia chi tiết từng mốc giây (tổng thời lượng 5 phút):
-
-| Mốc thời gian | Nội dung trình bày | Người phụ trách | Sản phẩm / Artifact phải mở |
-| :---: | :--- | :---: | :--- |
-| **0:00 – 0:30** *(30s)* | **Người dùng & Vấn đề:** Vấn nạn làm giả chứng nhận và nguy cơ mua bán nếu dùng NFT thường. Khẳng định giải pháp Soulbound Token. | **Hoàng Thu Trang** | `README.md` |
-| **0:30 – 1:15** *(45s)* | **Quy tắc kinh tế cốt lõi:** Cơ chế cấm chuyển nhượng tại `_update()`, lỗi tùy chỉnh `revert NotTransferable()`, chống cấp trùng lặp và bảo trợ phí gas. | **Hoàng Thu Trang** | `docs/SPEC.md`<br>`docs/ECONOMIC_RULES.md` |
-| **1:15 – 2:45** *(90s)* | **Demo trực tiếp luồng cốt lõi:** Kết nối MetaMask -> Tra cứu Token ID #1 (miễn phí gas) -> Issuer ký mint huy hiệu mới -> Xem giao dịch trên Sepolia Etherscan. | **Phan Thị Yến Nhi** | Giao diện Web DApp trực tiếp trên GitHub Pages |
-| **2:45 – 3:30** *(45s)* | **Demo một ca bị chặn (Negative Test):** Bấm nút thử nghiệm chuyển nhượng -> Giao diện bắt lỗi try/catch hiển thị thông báo bảo vệ quy tắc SBT. | **Phan Thị Yến Nhi** | Web DApp (Nút Chuyển nhượng thử nghiệm) |
-| **3:30 – 4:15** *(45s)* | **Rà soát an toàn & Audit:** Trình bày các lỗi đã bắt được từ Lab 10 (CEI, reset mapping), Lab 14 (audit Nhóm 06) và bài học phản biện AI. | **Hoàng Thu Trang** | `docs/AUDIT_REPORT.md`<br>`AI_JOURNAL.md` |
-| **4:15 – 5:00** *(45s)* | **Khả thi kinh tế L2 & Hướng phát triển:** Chi phí khi chạy trên Base/Arbitrum (< 0.005 USD/vé), tích hợp SSO nhà trường và kết luận. | **Phan Thị Yến Nhi** & **Hoàng Thu Trang** | `docs/PROJECT_PLAN.md` |
+## 💡 3. Bài toán thực tế và Giải pháp cốt lõi
+- **Thực trạng:** Giấy khen, chứng nhận sinh viên dạng giấy hoặc PDF dễ bị làm giả, dễ thất lạc, tốn kém chi phí in ấn và xác minh thủ công. Nếu dùng NFT ERC-721 thông thường, người nhận có thể bán hoặc chuyển nhượng cho người khác — làm sai lệch hoàn toàn ý nghĩa ghi nhận thành tích.
+- **Giải pháp:** Xây dựng hợp đồng thông minh tuân thủ cơ chế **Soulbound Token (SBT / EIP-5114)** trên nền ERC-721 (OpenZeppelin v5.x).
+  - Chỉ đơn vị có thẩm quyền (Admin / Issuer) mới có quyền cấp phát (mint) hoặc thu hồi (revoke) khi có sai phạm.
+  - Sau khi sinh viên nhận huy hiệu, **mọi thao tác chuyển nhượng (transfer) đều bị chặn ở cấp độ hợp đồng** (`revert NotTransferable()`).
+  - Nhà tuyển dụng, doanh nghiệp có thể tra cứu tính xác thực trực tiếp on-chain hoàn toàn miễn phí mà không tốn gas.
 
 ---
 
-### 🏷️ 3. THÔNG TIN COMMIT VÀ TAG QUY CHUẨN
-
-- **Commit Message quy chuẩn:**  
-  `lab-15: public dapp va presentation plan`  
-  *(Mã băm commit: `52af9f648b133d160423dbc8b438168d061ab21a`)*
-- **Git Release Tag:**  
-  `v0.1-demo`  
-  *(Gắn trực tiếp vào commit nghiệm thu Lab 15 trên nhánh `main`)*
+## 📂 4. Cấu trúc Codebase (Chuẩn mực ECO2432)
+```text
+hce-badge-k58/
+├── README.md                 # Giới thiệu tổng thể dự án và mục lục bài lab
+├── AGENTS.md                 # Bộ quy tắc hướng dẫn AI hỗ trợ lập trình
+├── AI_JOURNAL.md             # Nhật ký prompt AI, phân tích ảo giác và sửa lỗi
+├── lab09.md, lab10.md...     # Báo cáo tổng hợp riêng biệt từng Lab 9 đến 15 ở thư mục gốc
+├── docs/
+│   ├── SPEC.md               # Đặc tả kỹ thuật và yêu cầu nghiệp vụ v0.1 & v0.2
+│   ├── ECONOMIC_RULES.md     # Cơ chế kinh tế, chống lạm dụng và quyền quản trị
+│   ├── PROJECT_PLAN.md       # Kế hoạch chi tiết và tiến độ các mốc
+│   ├── PRESENTATION_PLAN.md  # Kịch bản demo 5 phút và phân công thuyết trình (Lab 15)
+│   ├── GATE_REVIEW_1.md      # Biên bản Gate Review 1 (Lab 12)
+│   └── AUDIT_REPORT.md       # Báo cáo kết quả audit chéo (Lab 14)
+├── contracts/
+│   ├── training/             # TimeLockVault.sol, VaultBuggy.sol, SafeBank.sol...
+│   └── project/
+│       └── ProjectCore.sol   # Hợp đồng thông minh cốt lõi của sản phẩm nhóm
+├── test/
+│   └── negative_tests.js     # Kịch bản kiểm thử bảo mật và ca vi phạm
+├── web/
+│   └── index.html            # Giao diện Web DApp kết nối MetaMask (Ethers.js v6)
+└── evidence/                 # Thư mục lưu bằng chứng và báo cáo độc lập từng Lab 8–15
+```
 
 ---
 
-## 🛠️ 4. BẢNG ÁNH XẠ GIAO DIỆN VỚI SMART CONTRACT (TRƯỚC KHI SỬA GIAO DIỆN)
+## 🗺️ 5. Tiến độ hoàn thành các bài Lab (Đã hoàn thành 100%)
 
-Theo đúng yêu cầu tại **Bước 1 — Nối giao diện với hợp đồng (Trang 34)**:
+Toàn bộ các bài lab đã được thực hiện chỉn chu, lưu thành các file riêng biệt tương tự như Lab 10:
 
-| Thành phần kỹ thuật | Giá trị thực tế của nhóm | Ghi chú & Ý nghĩa |
+- [x] **[Lab 08](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/evidence/lab-08/checklist.md):** Khởi tạo codebase nhóm, chốt chủ đề 7, lập kế hoạch, viết `SPEC.md` và `ECONOMIC_RULES.md` v0.1. Commit: `lab-08: khoi tao codebase nhom va dac ta v0.1`.
+- [x] **[Lab 09](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab09.md):** Hiện thực `TimeLockVault.sol` và hợp đồng `ProjectCore.sol` v0.1 biên dịch thành công. Commit: `lab-09: contract loi bien dich duoc`.
+- [x] **[Lab 10](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab10.md):** Rà soát mã nguồn (Audit), phát hiện 4 lỗ hổng, nâng cấp `ProjectCore.sol` v0.2, lập `AI_JOURNAL.md`. Commit: `lab-10: audit va sua loi project core`.
+- [x] **[Lab 11](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab11.md):** Cài đặt quy tắc kinh tế: cấm chuyển nhượng Soulbound qua hàm `_update` (`revert NotTransferable()`), kiểm thử gas. Commit: `lab-11: cai quy tac kinh te va test`.
+- [x] **[Lab 12](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab12.md):** **Gate Review 1** — Bảo vệ codebase trước giảng viên, kịch bản thuyết trình 3 phút, chốt phạm vi dự án. Commit: `lab-12: gate review 1 va cap nhat pham vi`.
+- [x] **[Lab 13](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab13.md):** Kiểm thử tấn công bảo mật: mô phỏng The DAO Reentrancy (`VulnerableBank.sol`), phòng thủ CEI (`SafeBank.sol`) và bộ test negative. Commit: `lab-13: them negative test va hardening`.
+- [x] **[Lab 14](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab14.md):** Rà soát chéo (Audit chéo) hợp đồng `EventTicket.sol` của Nhóm 06 với 10 tiêu chí và khắc phục lỗ hổng. Commit: `lab-14: xu ly ket qua audit cheo`.
+- [x] **[Lab 15](file:///C:/Users/Admin/.gemini/antigravity-ide/scratch/hce-badge-k58/lab15.md):** Hoàn thiện Web DApp, kết nối Ethers.js v6, deploy GitHub Pages, lập kịch bản thuyết trình 5 phút. Commit: `lab-15: public dapp va presentation plan` (Tag: `v0.1-demo`).
+
+---
+
+## 🔗 6. Bảng ánh xạ hợp đồng & DApp
+| Thành phần | Giá trị của nhóm | Ghi chú kỹ thuật |
 | :--- | :--- | :--- |
-| **Địa chỉ Smart Contract** | `0x71C845A959F3Ff84a441E66B408665fB849a6479` | Đã triển khai và verified trên Sepolia Testnet |
-| **ABI lấy từ đâu** | Remix IDE -> Tab Solidity Compiler -> Nút **ABI** | Tích hợp trực tiếp vào tệp `web/index.html` |
-| **Hàm đọc không tốn phí** | `verifyBadge(uint256 tokenId)` | Hàm `view`, tốn **0 Wei Gas**, cho phép mọi bên tra cứu xác thực |
-| **Hàm ghi cần xác nhận ví** | `issueBadge(address, uint256, string)`<br>`revokeBadge(uint256, string)` | Yêu cầu chữ ký ví Issuer/Admin, tốn gas ghi nhận trạng thái on-chain |
-| **Hàm thử nghiệm bị Revert** | `safeTransferFrom(from, to, tokenId)` | Kích hoạt điểm chặn `_update()` quăng lỗi `revert NotTransferable()` |
+| **Mạng triển khai** | **Ethereum Sepolia Testnet** | Chain ID: `11155111` |
+| **Địa chỉ hợp đồng** | `0x71C845A959F3Ff84a441E66B408665fB849a6479` | Chuẩn ERC-721 Soulbound (OpenZeppelin v5) |
+| **Hàm đọc (Free)** | `verifyBadge(uint256)` | View Call, 0 ETH gas |
+| **Hàm ghi (Cần ký ví)** | `issueBadge(...)`, `revokeBadge(...)` | Chỉ Admin / Issuer thực hiện |
+| **Hàm chặn chuyển nhượng** | `safeTransferFrom(...)` | Bị REVERT ngay lập tức với `NotTransferable()` |
+| **Đường dẫn DApp** | `https://yennhi23-1.github.io/hce-escrow-DETAI7/` | Triển khai trên GitHub Pages |
 
 ---
 
-## 📱 5. THIẾT KẾ ĐÁP ỨNG DI ĐỘNG & BẮT LỖI TRY/CATCH THÂN THIỆN
-- **Không làm hỏng phần kết nối:** Nhóm tuân thủ tuyệt đối quy tắc của giáo trình: giữ nguyên toàn bộ ID của các thẻ HTML và logic JavaScript Web3, chỉ tối ưu CSS giao diện.
-- **Bắt lỗi `try/catch`:** Sử dụng thuộc tính `err.shortMessage` và phân tích chuỗi lỗi để hiển thị thông báo tiếng Việt trực quan, chúc mừng việc hợp đồng đã bảo vệ thành công quy tắc kinh tế thay vì báo lỗi đỏ khiến người dùng hoang mang.
-- **Chế độ Demo trực quan (Fallback Demo Mode):** Khi mở trên trình duyệt điện thoại chưa có tiện ích ví Web3, ứng dụng tự động hiển thị dữ liệu mô phỏng để ban giám khảo có thể xem toàn bộ các tính năng một cách mượt mà.
+## 🛠️ 7. Hướng dẫn chạy và kiểm thử nhanh
+1. Mở thư mục dự án trong **Antigravity IDE** hoặc VS Code.
+2. Mở file `web/index.html` trực tiếp trên trình duyệt (hoặc truy cập link GitHub Pages).
+3. Kết nối ví MetaMask (chọn mạng Sepolia Testnet).
+4. Thử tra cứu Token ID #1 (miễn phí gas) hoặc nhấn nút **"Thử Nghiệm Bán/Chuyển Nhượng Huy Hiệu"** để xem hợp đồng chặn giao dịch và bảo vệ quy tắc kinh tế.
