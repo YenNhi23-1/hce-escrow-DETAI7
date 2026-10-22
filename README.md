@@ -1,7 +1,8 @@
 # 🏅 HCE Soulbound Achievement Badge — Đề tài 7
 > **Học phần:** Tiền điện tử & Hợp đồng thông minh (ECO2432)  
 > **Khoa:** Hệ thống Thông tin Kinh tế — Trường Đại học Kinh tế, Đại học Huế  
-> **Khóa:** K58 / Năm học 2025–2026  
+> **Khóa:** K57 / Năm học 2025–2026
+> **Lớp:** K57 - Kinh Tế Số
 > **Repository GitHub:** [https://github.com/YenNhi23-1/hce-escrow-DETAI7.git](https://github.com/YenNhi23-1/hce-escrow-DETAI7.git)  
 > **Đường dẫn DApp Trực tuyến:** [https://yennhi23-1.github.io/hce-escrow-DETAI7/](https://yennhi23-1.github.io/hce-escrow-DETAI7/)  
 
