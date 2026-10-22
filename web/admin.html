@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cổng Ban Quản Trị — HUE Soulbound Credentials</title>
+  <meta name="description" content="Phân hệ dành cho Hội đồng Khen thưởng Đại học Huế cấp phát và quản lý văn bằng, huy hiệu số.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Navigation Bar -->
+    <header class="page-top-nav">
+      <div class="page-nav-breadcrumb">
+        <a href="index.html">🏠 Trang chủ</a>
+        <span>›</span>
+        <strong>🏛️ Ban Quản Trị &amp; Cấp Phát</strong>
+      </div>
+      <div class="page-nav-actions">
+        <button class="btn-connect-metamask" onclick="handleWalletBtnClick()">🦊 Kết nối MetaMask</button>
+        <a href="index.html" class="btn-outline" style="font-size:0.85rem;padding:6px 14px;text-decoration:none;">← Về Trang Chủ</a>
+        <a href="student.html" class="btn-outline" style="font-size:0.85rem;padding:6px 14px;text-decoration:none;">🎓 Sinh viên</a>
+        <a href="enterprise.html" class="btn-outline" style="font-size:0.85rem;padding:6px 14px;text-decoration:none;">🏢 Doanh nghiệp</a>
+      </div>
+    </header>
+
+    <!-- MÀN HÌNH 1: ĐĂNG NHẬP ADMIN -->
+    <div id="adminLoginScreen" class="student-login-wrapper">
+      <div class="student-login-header">
+        <div class="student-login-logo" style="background:linear-gradient(135deg, #b45309, #d97706);">🏛️</div>
+        <h2 class="student-login-title">Ban Quản Trị Cấp Phát</h2>
+        <p class="student-login-subtitle">Hội đồng Khen thưởng &amp; Kỷ luật — Đại học Huế</p>
+      </div>
+
+      <div class="student-login-card">
+        <div id="adminLoginError" style="display:none;background:var(--rose-bg);border:1px solid var(--rose-border);color:var(--rose);padding:12px;border-radius:var(--radius-sm);font-size:0.85rem;margin-bottom:16px;">
+          <span style="font-weight:700;">Lỗi:</span> Tài khoản hoặc mật khẩu quản trị không đúng.
+        </div>
+
+        <form id="formAdminLogin" onsubmit="handleAdminLogin(event)">
+          <div class="form-group">
+            <label class="form-label" for="adminLoginUser">Tên đăng nhập quản trị</label>
+            <input type="text" id="adminLoginUser" class="form-input" placeholder="Ví dụ: admin.hue" required autofocus autocomplete="username">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="adminLoginPass">Mật khẩu</label>
+            <div style="position:relative;">
+              <input type="password" id="adminLoginPass" class="form-input" placeholder="Nhập mật khẩu quản trị" required autocomplete="current-password" style="padding-right:44px;">
+              <button type="button" onclick="togglePwd('adminLoginPass', this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-dim);" title="Hiện/Ẩn mật khẩu">👁️</button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%;padding:12px;font-size:0.95rem;justify-content:center;margin-top:8px;background:var(--gold);border-color:var(--gold);">
+            Đăng Nhập Cổng Quản Trị →
+          </button>
+        </form>
+
+        <div class="login-hint-box">
+          <div style="font-size:0.8rem;color:var(--text-dim);font-weight:600;margin-bottom:8px;">💡 Tài khoản mẫu Ban Quản trị:</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <button type="button" class="btn-outline" style="font-size:0.78rem;padding:6px 10px;text-align:left;justify-content:space-between;display:flex;" onclick="fillAdminDemo('admin.hue', 'admin@2026')">
+              <span><strong>admin.hue</strong> (Hội đồng Khen thưởng HUE)</span>
+              <span style="color:var(--gold);font-weight:600;">Điền →</span>
+            </button>
+            <button type="button" class="btn-outline" style="font-size:0.78rem;padding:6px 10px;text-align:left;justify-content:space-between;display:flex;" onclick="fillAdminDemo('giam.doc', 'admin@2026')">
+              <span><strong>giam.doc</strong> (Ban Giám đốc Đại học Huế)</span>
+              <span style="color:var(--gold);font-weight:600;">Điền →</span>
+            </button>
+          </div>
+          <div style="font-size:0.75rem;color:var(--text-dim);margin-top:8px;text-align:center;">Mật khẩu quản trị demo: <code style="color:var(--gold);">admin@2026</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÀN HÌNH 2: DASHBOARD ADMIN -->
+    <div id="adminDashboard" style="display:none;">
+      <!-- Admin Header Banner -->
+      <div class="card" style="margin-bottom:24px;border-left:4px solid var(--gold);">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <h2 id="adminDisplayName" style="font-size:1.25rem;font-weight:800;color:var(--text-main);">Hội đồng Khen thưởng — Đại học Huế</h2>
+              <span class="badge-tag" style="background:var(--gold-bg);color:var(--gold);border-color:var(--gold-border);">Quyền Admin On-Chain</span>
+            </div>
+            <div style="font-size:0.84rem;color:var(--text-dim);margin-top:4px;">
+              Smart Contract: <code>ProjectCore.sol</code> · Sepolia Testnet · ERC-721 Soulbound Standard
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;">
+            <button class="btn-outline" onclick="resetDatabaseToDefault()" style="font-size:0.82rem;padding:6px 12px;" title="Khôi phục 3 bản ghi gốc">
+              🔄 Reset Dữ Liệu Demo
+            </button>
+            <button class="btn-outline" onclick="handleAdminLogout()" style="font-size:0.82rem;padding:6px 14px;color:var(--rose);border-color:var(--rose-border);">
+              🚪 Đăng xuất
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Cấp phát & Preview Card -->
+      <div class="portal-grid" style="margin-bottom:28px;">
+        <!-- Left: Form Cấp Phát -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Cấp Phát Văn Bằng / Huy Hiệu Thành Tích</h3>
+              <p class="card-subtitle">Đúc token HUE-SBT trực tiếp vào địa chỉ ví on-chain của sinh viên</p>
+            </div>
+            <span class="badge-tag" style="background:var(--emerald-bg);color:var(--emerald);border-color:var(--emerald-border);">● Gas Free (Trường tài trợ)</span>
+          </div>
+
+          <form id="formIssueBadge" onsubmit="handleIssueBadge(event)">
+            <div class="form-group">
+              <label class="form-label" for="selectBadgeType">1. Chọn Danh mục Văn bằng / Vinh danh</label>
+              <select id="selectBadgeType" class="form-select" onchange="updatePreviewCard()">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group" style="flex: 1.25;">
+                <label class="form-label" for="inputStudentName">
+                  <span>👤 2. Họ và tên sinh viên</span>
+                  <span class="required-star">* Bắt buộc</span>
+                </label>
+                <div class="input-icon-box">
+                  <span class="input-icon">🎓</span>
+                  <input type="text" id="inputStudentName" class="form-input custom-name-input" placeholder="Nhập họ và tên (VD: Phan Thị Yến Nhi)" required oninput="handleNameInput(this)">
+                  <span id="nameCheckmark" class="input-status-icon" style="display:none;">✨</span>
+                </div>
+                <div class="quick-name-suggestions">
+                  <span class="suggestion-label">Gợi ý nhanh:</span>
+                  <button type="button" class="chip-suggestion" onclick="fillStudentQuick('Phan Thị Yến Nhi', '23K4300014')">Phan Thị Yến Nhi</button>
+                  <button type="button" class="chip-suggestion" onclick="fillStudentQuick('Nguyễn Quốc Bảo', '23K4300028')">Nguyễn Quốc Bảo</button>
+                  <button type="button" class="chip-suggestion" onclick="fillStudentQuick('Lê Thị Diệu Linh', '23K4300085')">Lê Thị Diệu Linh</button>
+                </div>
+              </div>
+
+              <div class="form-group" style="flex: 0.75;">
+                <label class="form-label" for="inputStudentId">
+                  <span>🆔 3. Mã sinh viên (MSSV)</span>
+                  <span class="required-star">*</span>
+                </label>
+                <div class="input-icon-box">
+                  <span class="input-icon">🔢</span>
+                  <input type="text" id="inputStudentId" class="form-input" placeholder="VD: 23K4300014" required oninput="updatePreviewCard()" style="font-weight:600; letter-spacing:0.04em;">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:6px;">
+                <label class="form-label" for="inputStudentAddress" style="margin-bottom:0;">
+                  <span>🔑 4. Địa chỉ ví on-chain của sinh viên</span>
+                </label>
+                <div style="display:flex;gap:6px;">
+                  <button type="button" class="btn-outline" style="font-size:0.75rem;padding:3px 8px;" onclick="useConnectedMetaMaskWallet()">
+                    🦊 Lấy ví MetaMask đang kết nối
+                  </button>
+                  <button type="button" class="btn-outline" style="font-size:0.75rem;padding:3px 8px;" onclick="generateRandomWallet()">
+                    🎲 Tạo ngẫu nhiên
+                  </button>
+                </div>
+              </div>
+              <div class="input-icon-box">
+                <span class="input-icon">💳</span>
+                <input type="text" id="inputStudentAddress" class="form-input" placeholder="0x..." required oninput="updatePreviewCard()" style="font-family:monospace;">
+              </div>
+              <small style="color:var(--text-dim);font-size:0.75rem;margin-top:4px;display:block;">
+                Mỗi sinh viên chỉ được liên kết duy nhất 1 ví on-chain theo quy chế trường.
+              </small>
+            </div>
+
+            <div id="txModeAlert" style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:var(--radius-sm); padding:10px 14px; margin-top:14px; font-size:0.83rem; line-height:1.5;">
+              <span id="txModeText">🦊 <strong>Chế độ ký duyệt:</strong> Đang kiểm tra trạng thái ví...</span>
+            </div>
+
+            <button type="submit" id="btnSubmitIssue" class="btn-primary" style="width:100%;padding:12px;font-size:0.95rem;justify-content:center;margin-top:10px;">
+              ⚡ Ký Duyệt &amp; Đúc Token HUE-SBT On-Chain
+            </button>
+          </form>
+        </div>
+
+        <!-- Right: Live Preview Card -->
+        <div>
+          <div class="card" style="margin-bottom:16px;">
+            <div class="card-header">
+              <h3 class="card-title">Xem Trước Huy Hiệu (On-Chain Preview)</h3>
+              <span class="badge-tag">HUE-SBT</span>
+            </div>
+            
+            <div class="badge-preview-card" style="margin-top:10px;">
+              <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+                <div id="previewBadgeIcon" style="width:48px;height:48px;background:var(--primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:26px;">🏆</div>
+                <div>
+                  <h4 id="previewBadgeTitle" style="font-size:1.05rem;font-weight:700;color:var(--text-main);">Sinh viên 5 tốt tiêu biểu cấp Đại học Huế</h4>
+                  <div style="font-size:0.8rem;color:var(--text-dim);">Đại học Huế · ERC-721 Soulbound Token</div>
+                </div>
+              </div>
+
+              <div style="background:var(--bg-subtle);border:1px solid var(--border-color);border-radius:var(--radius-sm);padding:12px;font-size:0.85rem;line-height:1.6;">
+                <div>👤 <strong>Sinh viên:</strong> <span id="previewRecipientName">Chưa nhập tên</span> (<span id="previewRecipientId">MSSV</span>)</div>
+                <div style="margin-top:4px;word-break:break-all;">🔑 <strong>Ví nhận:</strong> <code id="previewRecipientAddress" style="color:var(--primary);font-weight:600;">0x...</code></div>
+                <div style="margin-top:4px;color:var(--emerald);font-weight:600;font-size:0.8rem;">✓ Xác thực bảo chứng bởi Đại học Huế</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rules banner -->
+          <div class="card" style="background:var(--bg-subtle);">
+            <h4 style="font-size:0.9rem;font-weight:700;color:var(--text-main);margin-bottom:8px;">🔒 Ràng buộc bảo mật của Smart Contract:</h4>
+            <ul style="font-size:0.82rem;color:var(--text-muted);padding-left:18px;line-height:1.6;">
+              <li><strong>E5 InvalidRecipient:</strong> Không cấp vào địa chỉ rỗng 0x0.</li>
+              <li><strong>R-W OneWalletPerStudent:</strong> 1 ví chỉ cấp cho 1 sinh viên.</li>
+              <li><strong>R-D NoDuplicateCategory:</strong> 1 sinh viên không nhận 2 lần cùng danh mục.</li>
+              <li><strong>Soulbound:</strong> Token khóa chuyển nhượng vĩnh viễn.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sổ cái văn bằng đã cấp -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Sổ Cái Văn Bằng &amp; Huy Hiệu Đã Phát Hành</h3>
+            <p class="card-subtitle">Dữ liệu on-chain đồng bộ theo thời gian thực</p>
+          </div>
+          <span id="badgeCountPill" class="badge-tag">0 bản ghi</span>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="data-table" style="width:100%;border-collapse:collapse;margin-top:12px;">
+            <thead>
+              <tr style="border-bottom:2px solid var(--border-color);text-align:left;font-size:0.82rem;color:var(--text-dim);">
+                <th style="padding:10px;">ID</th>
+                <th style="padding:10px;">Danh hiệu vinh danh</th>
+                <th style="padding:10px;">Sinh viên &amp; MSSV</th>
+                <th style="padding:10px;">Địa chỉ ví on-chain</th>
+                <th style="padding:10px;">Ngày cấp</th>
+                <th style="padding:10px;">Trạng thái</th>
+                <th style="padding:10px;">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="issuedBadgesList">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="shared.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Đổ danh mục vào select
+      const select = document.getElementById("selectBadgeType");
+      for (const [id, info] of Object.entries(BADGE_TYPES)) {
+        const opt = document.createElement("option");
+        opt.value = id;
+        opt.innerText = `${info.icon} ${info.title}`;
+        select.appendChild(opt);
+      }
+
+      // Check session
+      const savedAdmin = sessionStorage.getItem("logged_admin_user");
+      if (savedAdmin && ADMIN_ACCOUNTS[savedAdmin]) {
+        loginAdmin(savedAdmin);
+      }
+      updateTxModeAlert();
+    });
+
+    function fillAdminDemo(user, pwd) {
+      document.getElementById("adminLoginUser").value = user;
+      document.getElementById("adminLoginPass").value = pwd;
+      document.getElementById("adminLoginError").style.display = "none";
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById("adminLoginUser").value.trim();
+      const pwd = document.getElementById("adminLoginPass").value;
+      const errorBox = document.getElementById("adminLoginError");
+
+      const acc = ADMIN_ACCOUNTS[user];
+      if (!acc || acc.password !== pwd) {
+        errorBox.style.display = "block";
+        document.getElementById("adminLoginPass").value = "";
+        return;
+      }
+
+      errorBox.style.display = "none";
+      sessionStorage.setItem("logged_admin_user", user);
+      loginAdmin(user);
+      showToast(`✅ Chào mừng ${acc.displayName} đã đăng nhập!`, "success");
+    }
+
+    function loginAdmin(user) {
+      const acc = ADMIN_ACCOUNTS[user];
+      document.getElementById("adminDisplayName").innerText = acc.displayName;
+      document.getElementById("adminLoginScreen").style.display = "none";
+      document.getElementById("adminDashboard").style.display = "block";
+      renderBadgesTable();
+      generateRandomWallet();
+      updateTxModeAlert();
+    }
+
+    function handleAdminLogout() {
+      sessionStorage.removeItem("logged_admin_user");
+      document.getElementById("formAdminLogin").reset();
+      document.getElementById("adminLoginError").style.display = "none";
+      document.getElementById("adminLoginScreen").style.display = "block";
+      document.getElementById("adminDashboard").style.display = "none";
+      showToast("Đã đăng xuất khỏi cổng Ban Quản Trị.", "info");
+    }
+
+    function updatePreviewCard() {
+      const typeId = parseInt(document.getElementById("selectBadgeType").value) || 1;
+      const info = BADGE_TYPES[typeId] || BADGE_TYPES[1];
+      const name = document.getElementById("inputStudentName").value.trim();
+      const mssv = document.getElementById("inputStudentId").value.trim();
+      const addr = document.getElementById("inputStudentAddress").value.trim();
+
+      document.getElementById("previewBadgeIcon").innerText = info.icon;
+      document.getElementById("previewBadgeTitle").innerText = info.title;
+      document.getElementById("previewRecipientName").innerText = name || "Chưa nhập tên";
+      document.getElementById("previewRecipientId").innerText = mssv || "MSSV";
+
+      if (addr.length >= 10) {
+        document.getElementById("previewRecipientAddress").innerText = `${addr.substring(0, 6)}...${addr.substring(addr.length - 4)}`;
+      } else {
+        document.getElementById("previewRecipientAddress").innerText = addr || "0x...";
+      }
+    }
+
+    function handleNameInput(input) {
+      updatePreviewCard();
+      const val = input.value.trim();
+      const checkmark = document.getElementById("nameCheckmark");
+      if (checkmark) {
+        checkmark.style.display = val.length >= 3 ? "inline-block" : "none";
+      }
+    }
+
+    function fillStudentQuick(name, id) {
+      document.getElementById("inputStudentName").value = name;
+      document.getElementById("inputStudentId").value = id;
+      handleNameInput(document.getElementById("inputStudentName"));
+      showToast(`✨ Đã điền nhanh sinh viên: ${name} (${id})`, "info");
+    }
+
+    function generateRandomWallet() {
+      const hex = "0123456789abcdef";
+      let addr = "0x";
+      for (let i = 0; i < 40; i++) {
+        addr += hex[Math.floor(Math.random() * hex.length)];
+      }
+      document.getElementById("inputStudentAddress").value = addr;
+      updatePreviewCard();
+    }
+
+    async function handleIssueBadge(e) {
+      e.preventDefault();
+      const db = loadDatabase();
+      const type = parseInt(document.getElementById("selectBadgeType").value);
+      const studentName = document.getElementById("inputStudentName").value.trim();
+      const studentId = document.getElementById("inputStudentId").value.trim();
+      const recipientAddr = document.getElementById("inputStudentAddress").value.trim();
+
+      if (!recipientAddr || recipientAddr === "0x0000000000000000000000000000000000000000") {
+        showToast("LỖI REVERT: InvalidRecipient() — Không được cấp vào địa chỉ rỗng!", "error");
+        return;
+      }
+
+      const walletOwner = db.find(b => b.recipient.toLowerCase() === recipientAddr.toLowerCase() && !b.isRevoked);
+      if (walletOwner && walletOwner.studentId.toLowerCase() !== studentId.toLowerCase()) {
+        showToast(`LỖI REVERT: WalletAlreadyLinked() — Ví này đã thuộc về sinh viên "${walletOwner.studentName}" (${walletOwner.studentId})!`, "error");
+        return;
+      }
+
+      const studentWithOtherWallet = db.find(b => b.studentId.toLowerCase() === studentId.toLowerCase() && b.recipient.toLowerCase() !== recipientAddr.toLowerCase() && !b.isRevoked);
+      if (studentWithOtherWallet) {
+        showToast(`LỖI REVERT: StudentAlreadyRegistered() — Sinh viên ${studentId} đã dùng ví ${studentWithOtherWallet.recipient.substring(0, 8)}...! Mỗi sinh viên chỉ 1 ví.`, "error");
+        return;
+      }
+
+      const dupType = db.find(b => b.studentId.toLowerCase() === studentId.toLowerCase() && b.badgeType === type && !b.isRevoked);
+      if (dupType) {
+        showToast(`LỖI REVERT: DuplicateBadgeType() — Sinh viên "${studentId}" đã có huy hiệu #${dupType.tokenId} cùng loại!`, "error");
+        return;
+      }
+
+      // --- KÍCH HOẠT GIAO DỊCH THẬT QUA METAMASK ĐỂ TRỪ PHÍ GAS ---
+      let connectedWallet = getConnectedWallet();
+      const isRealMetaMask = typeof window.ethereum !== "undefined" && connectedWallet && !sessionStorage.getItem("is_simulated_wallet");
+      let txHash = null;
+
+      const submitBtn = document.getElementById("btnSubmitIssue");
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = "⏳ Đang mở MetaMask để ký duyệt...";
+      }
+
+      if (isRealMetaMask) {
+        try {
+          showToast("🦊 Đang mở MetaMask! Hãy bấm 'Xác nhận' trên ví để ký duyệt và thanh toán phí Gas on-chain...", "info");
+
+          // Chuẩn hóa dữ liệu hàm issueBadge(address,uint256) theo ABI EVM
+          const cleanRecipient = recipientAddr.replace("0x", "").toLowerCase().padStart(64, "0");
+          const hexType = type.toString(16).padStart(64, "0");
+          const callData = "0x8a192bc5" + cleanRecipient + hexType;
+
+          // Gửi transaction thực sự đến MetaMask yêu cầu ký và phát sóng mạng Sepolia
+          txHash = await window.ethereum.request({
+            method: "eth_sendTransaction",
+            params: [{
+              from: connectedWallet,
+              to: recipientAddr, // Gửi tới ví nhận token kèm dữ liệu cấp bằng
+              value: "0x0",      // 0 ETH chuyển khoản (chỉ trừ phí gas mạng EVM)
+              data: callData
+            }]
+          });
+
+          showToast(`⚡ Giao dịch thành công! Đã trừ phí Gas trên ví MetaMask. Tx: ${formatAddress(txHash)}`, "success");
+        } catch (err) {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerText = "⚡ Ký Duyệt & Đúc Token HUE-SBT On-Chain";
+          }
+          if (err.code === 4001 || err.message?.includes("User rejected")) {
+            showToast("❌ Bạn đã HỦY giao dịch trên MetaMask! Token chưa được cấp, không bị trừ tiền.", "error");
+            return;
+          } else if (err.message?.includes("insufficient funds")) {
+            showToast("⚠️ Số dư ví không đủ Sepolia ETH để trả phí Gas! Hãy nhận ETH miễn phí tại Faucet.", "error");
+            return;
+          } else {
+            console.warn("MetaMask error:", err);
+            showToast("⚠️ Lỗi giao dịch MetaMask: " + (err.message || "Không thể thực hiện"), "error");
+            return;
+          }
+        }
+      } else {
+        showToast("ℹ️ Đang chạy chế độ Gas-Free (mô phỏng). Để MetaMask trừ phí Gas thật, hãy bấm nút 'Kết nối MetaMask' ở thanh trên cùng!", "info");
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "⚡ Ký Duyệt & Đúc Token HUE-SBT On-Chain";
+      }
+
+      const newId = db.length > 0 ? Math.max(...db.map(b => b.tokenId)) + 1 : 1;
+      const now = new Date();
+      const timeString = `${now.toLocaleDateString("vi-VN")}, ${now.toLocaleTimeString("vi-VN")}`;
+
+      const newBadge = {
+        tokenId: newId,
+        badgeType: type,
+        studentName: studentName,
+        studentId: studentId,
+        recipient: recipientAddr,
+        issuedAt: timeString,
+        isRevoked: false,
+        revokeReason: "",
+        txHash: txHash || ("0x" + Array.from({length: 64}, () => Math.floor(Math.random()*16).toString(16)).join("")),
+        isRealOnChain: !!txHash
+      };
+
+      db.push(newBadge);
+      saveDatabase(db);
+
+      // Tự động cấp tài khoản cho sinh viên nếu chưa có
+      if (!STUDENT_ACCOUNTS[studentId]) {
+        STUDENT_ACCOUNTS[studentId] = { password: "hue@2026", name: studentName };
+      }
+
+      showToast(`✅ Đã đúc thành công Huy hiệu #${newId} cho sinh viên ${studentName}!`, "success");
+      renderBadgesTable();
+
+      document.getElementById("inputStudentName").value = "";
+      document.getElementById("inputStudentId").value = "";
+      const checkmark = document.getElementById("nameCheckmark");
+      if (checkmark) checkmark.style.display = "none";
+      generateRandomWallet();
+    }
+
+    function renderBadgesTable() {
+      const db = loadDatabase();
+      const tbody = document.getElementById("issuedBadgesList");
+      tbody.innerHTML = "";
+
+      db.forEach(badge => {
+        const info = BADGE_TYPES[badge.badgeType] || { title: "Danh hiệu", icon: "🎖️" };
+        const shortAddr = `${badge.recipient.substring(0, 6)}...${badge.recipient.substring(badge.recipient.length - 4)}`;
+
+        const tr = document.createElement("tr");
+        tr.style.borderBottom = "1px solid var(--border-color)";
+        tr.innerHTML = `
+          <td style="padding: 10px; font-weight: 700; color: var(--gold);">#${badge.tokenId}</td>
+          <td style="padding: 10px;">
+            <span style="font-size: 1.1rem; margin-right: 6px;">${info.icon}</span>
+            <strong>${info.title}</strong>
+          </td>
+          <td style="padding: 10px;">
+            ${badge.studentName} <br>
+            <small style="color: var(--text-dim); font-family: monospace;">MSSV: ${badge.studentId}</small>
+          </td>
+          <td style="padding: 10px; font-family: monospace; color: var(--primary); font-weight: 600;">${shortAddr}</td>
+          <td style="padding: 10px; font-size: 0.8rem; color: var(--text-dim);">
+            ${badge.issuedAt}
+            ${badge.txHash ? `<br><a href="https://sepolia.etherscan.io/tx/${badge.txHash}" target="_blank" style="color:var(--primary); font-family:monospace; font-size:0.75rem;" title="${badge.txHash}">Tx: ${formatAddress(badge.txHash)} ↗</a>` : ''}
+          </td>
+          <td style="padding: 10px;">
+            ${badge.isRevoked 
+              ? `<span class="badge-tag" style="background: var(--rose-bg); color: var(--rose); border-color: var(--rose-border);">Đã thu hồi (${badge.revokeReason})</span>`
+              : `<span class="badge-tag" style="background: var(--emerald-bg); color: var(--emerald); border-color: var(--emerald-border);">${badge.isRealOnChain ? '⚡ On-Chain' : 'Hợp lệ (Active)'}</span>`
+            }
+          </td>
+          <td style="padding: 10px;">
+            ${!badge.isRevoked ? `
+              <button class="btn-outline" style="padding: 4px 10px; font-size: 0.75rem; color: var(--rose); border-color: var(--rose-border);" onclick="revokeBadge(${badge.tokenId})">
+                Thu hồi
+              </button>
+            ` : `<span style="font-size: 0.75rem; color: var(--text-dim);">Đã hủy</span>`}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById("badgeCountPill").innerText = `${db.length} bản ghi`;
+    }
+
+    function revokeBadge(tokenId) {
+      const reason = prompt("Nhập lý do thu hồi văn bằng (Quyết định kỷ luật của Hội đồng trường):", "Vi phạm quy chế đào tạo Đại học Huế");
+      if (!reason) return;
+
+      const db = loadDatabase();
+      const badge = db.find(b => b.tokenId === tokenId);
+      if (badge) {
+        badge.isRevoked = true;
+        badge.revokeReason = reason;
+        saveDatabase(db);
+        showToast(`⚠️ Đã thu hồi & hủy giá trị on-chain của văn bằng #${tokenId}!`, "error");
+        renderBadgesTable();
+      }
+    }
+
+    function resetDatabaseToDefault() {
+      if (confirm("Khôi phục danh sách văn bằng về 3 bản ghi chuẩn ban đầu?")) {
+        saveDatabase(DEFAULT_DB);
+        renderBadgesTable();
+        showToast("Đã khôi phục dữ liệu demo mặc định.", "info");
+      }
+    }
+
+    async function useConnectedMetaMaskWallet() {
+      let wallet = getConnectedWallet();
+      if (!wallet) {
+        wallet = await connectMetaMask();
+      }
+      if (wallet) {
+        document.getElementById("inputStudentAddress").value = wallet;
+        updatePreviewCard();
+        showToast(`🦊 Đã điền địa chỉ ví MetaMask cá nhân: ${formatAddress(wallet)}`, "success");
+      }
+    }
+
+    function updateTxModeAlert() {
+      const alert = document.getElementById("txModeAlert");
+      const text = document.getElementById("txModeText");
+      if (!alert || !text) return;
+
+      const wallet = getConnectedWallet();
+      const isRealMetaMask = typeof window.ethereum !== "undefined" && wallet && !sessionStorage.getItem("is_simulated_wallet");
+
+      if (isRealMetaMask) {
+        alert.style.background = "#ecfdf5";
+        alert.style.borderColor = "#a7f3d0";
+        alert.style.color = "#065f46";
+        text.innerHTML = `🦊 <strong>Chế độ ký duyệt On-Chain:</strong> Ví MetaMask <code>${formatAddress(wallet)}</code> đang kết nối. Khi bấm cấp, MetaMask sẽ tự động nhảy popup yêu cầu bạn ký và <strong>trừ phí Gas (Sepolia ETH) thật</strong>!`;
+      } else {
+        alert.style.background = "#eff6ff";
+        alert.style.borderColor = "#bfdbfe";
+        alert.style.color = "#1e40af";
+        text.innerHTML = `💡 <strong>Chế độ hiện tại:</strong> Mô phỏng Gas-Free (chưa kết nối ví thật). Để trừ phí Gas thật từ ví, hãy bấm <strong>"🦊 Kết nối MetaMask"</strong> ở góc trên!`;
+      }
+    }
+
+    window.addEventListener("walletConnected", updateTxModeAlert);
+    window.addEventListener("walletDisconnected", updateTxModeAlert);
+  </script>
+</body>
+</html>

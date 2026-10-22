@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUE Soulbound Credentials — Hệ Thống Văn Bằng Số Đại Học Huế</title>
+  <meta name="description" content="Nền tảng quản lý, cấp phát và xác thực văn bằng thành tích sinh viên Đại học Huế trên blockchain.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="landing-body">
+  <header class="landing-nav">
+    <div class="landing-nav-inner">
+      <a href="index.html" class="landing-brand">
+        <div class="landing-brand-logo">🏛️</div>
+        <div>
+          <div class="landing-brand-name">HUE CREDENTIALS</div>
+          <div class="landing-brand-sub">Đại học Huế · Hệ thống văn bằng số</div>
+        </div>
+      </a>
+      <div class="landing-nav-links">
+        <button class="btn-connect-metamask" onclick="handleWalletBtnClick()">🦊 Kết nối MetaMask</button>
+        <a href="contract.html" class="landing-nav-link">Đặc tả kỹ thuật</a>
+        <a href="student.html" class="btn-primary" style="text-decoration:none;">Đăng nhập →</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="landing-hero">
+    <div class="landing-hero-inner">
+      <div class="landing-hero-badge">🔗 Powered by ERC-721 Soulbound Token · Sepolia Testnet</div>
+      <h1 class="landing-hero-title">Văn Bằng &amp; Thành Tích Số<br><span class="landing-hero-highlight">Đại Học Huế</span></h1>
+      <p class="landing-hero-desc">Hệ thống ứng dụng hợp đồng thông minh <strong>HUE-SBT</strong> để cấp phát, lưu trữ và xác thực vĩnh viễn toàn bộ văn bằng, chứng chỉ và danh hiệu khen thưởng của sinh viên trực tiếp trên blockchain — bất khả giả mạo, bất khả chuyển nhượng.</p>
+      <div class="landing-hero-cta">
+        <a href="student.html" class="btn-landing-primary">🎓 Tra Cứu Văn Bằng Cá Nhân</a>
+        <a href="enterprise.html" class="btn-landing-outline">🏢 Cổng Xác Minh Doanh Nghiệp</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-stats-bar">
+    <div class="landing-stats-inner">
+      <div class="landing-stat-item">
+        <div class="landing-stat-num" id="statMinted">3</div>
+        <div class="landing-stat-label">HUE-SBT đã phát hành</div>
+      </div>
+      <div class="landing-stat-divider"></div>
+      <div class="landing-stat-item">
+        <div class="landing-stat-num">50</div>
+        <div class="landing-stat-label">Hạn mức đợt khen thưởng</div>
+      </div>
+      <div class="landing-stat-divider"></div>
+      <div class="landing-stat-item">
+        <div class="landing-stat-num">10</div>
+        <div class="landing-stat-label">Danh mục vinh danh</div>
+      </div>
+      <div class="landing-stat-divider"></div>
+      <div class="landing-stat-item">
+        <div class="landing-stat-num">0%</div>
+        <div class="landing-stat-label">Phí cấp phát (miễn phí)</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-portals">
+    <div class="landing-portals-inner">
+      <div class="landing-section-header">
+        <h2 class="landing-section-title">Chọn Cổng Thông Tin</h2>
+        <p class="landing-section-desc">Mỗi cổng được bảo vệ bởi hệ thống xác thực riêng, chỉ cho phép đúng vai trò truy cập.</p>
+      </div>
+      <div class="portal-cards-grid">
+        <a href="admin.html" class="portal-card portal-card--admin">
+          <div class="portal-card-icon">🏛️</div>
+          <div class="portal-card-content">
+            <h3 class="portal-card-title">Ban Quản Trị &amp; Cấp Phát</h3>
+            <p class="portal-card-desc">Dành cho Hội đồng Khen thưởng Đại học Huế. Ký duyệt và phát hành huy hiệu thành tích on-chain, quản lý sổ cái văn bằng.</p>
+            <div class="portal-card-meta"><span class="portal-card-tag">🔐 Yêu cầu xác thực</span><span class="portal-card-arrow">→</span></div>
+          </div>
+        </a>
+        <a href="student.html" class="portal-card portal-card--student">
+          <div class="portal-card-icon">🎓</div>
+          <div class="portal-card-content">
+            <h3 class="portal-card-title">Cổng Sinh Viên</h3>
+            <p class="portal-card-desc">Đăng nhập bằng MSSV để xem toàn bộ huy hiệu thành tích số cá nhân. Tạo link xác minh chia sẻ CV cho nhà tuyển dụng.</p>
+            <div class="portal-card-meta"><span class="portal-card-tag">🔐 Đăng nhập MSSV</span><span class="portal-card-arrow">→</span></div>
+          </div>
+        </a>
+        <a href="enterprise.html" class="portal-card portal-card--enterprise">
+          <div class="portal-card-icon">🏢</div>
+          <div class="portal-card-content">
+            <h3 class="portal-card-title">Cổng Doanh Nghiệp &amp; Xác Minh</h3>
+            <p class="portal-card-desc">Nhà tuyển dụng và đối tác học thuật tra cứu, thẩm định tính xác thực văn bằng ứng viên trực tiếp trên blockchain.</p>
+            <div class="portal-card-meta"><span class="portal-card-tag">🔐 Tài khoản doanh nghiệp</span><span class="portal-card-arrow">→</span></div>
+          </div>
+        </a>
+        <a href="contract.html" class="portal-card portal-card--contract">
+          <div class="portal-card-icon">🛡️</div>
+          <div class="portal-card-content">
+            <h3 class="portal-card-title">Đặc Tả &amp; Smart Contract</h3>
+            <p class="portal-card-desc">Thông tin kỹ thuật công khai về kiến trúc ERC-721 Soulbound Token, cơ chế khóa chuyển nhượng và thông số mạng Sepolia.</p>
+            <div class="portal-card-meta"><span class="portal-card-tag portal-card-tag--public">🌐 Công khai</span><span class="portal-card-arrow">→</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-how">
+    <div class="landing-portals-inner">
+      <div class="landing-section-header">
+        <h2 class="landing-section-title">Cơ Chế Hoạt Động</h2>
+      </div>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-step-num">01</div>
+          <h4 class="how-step-title">Hội đồng ký duyệt</h4>
+          <p class="how-step-desc">Ban Quản trị đăng nhập, nhập thông tin sinh viên được vinh danh và phát hành HUE-SBT on-chain.</p>
+        </div>
+        <div class="how-step-arrow">→</div>
+        <div class="how-step">
+          <div class="how-step-num">02</div>
+          <h4 class="how-step-title">Token gắn vĩnh viễn</h4>
+          <p class="how-step-desc">Huy hiệu được đúc vào ví on-chain của sinh viên. Cơ chế Soulbound ngăn mọi hành vi chuyển nhượng.</p>
+        </div>
+        <div class="how-step-arrow">→</div>
+        <div class="how-step">
+          <div class="how-step-num">03</div>
+          <h4 class="how-step-title">Sinh viên tra cứu</h4>
+          <p class="how-step-desc">Sinh viên đăng nhập bằng MSSV, xem thành tích và tạo link xác minh để chia sẻ với nhà tuyển dụng.</p>
+        </div>
+        <div class="how-step-arrow">→</div>
+        <div class="how-step">
+          <div class="how-step-num">04</div>
+          <h4 class="how-step-title">Doanh nghiệp xác minh</h4>
+          <p class="how-step-desc">Nhà tuyển dụng tra cứu theo Token ID hoặc địa chỉ ví — kết quả tức thì, không qua trường.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="landing-footer">
+    <div class="landing-portals-inner">
+      <div class="landing-footer-inner">
+        <div>
+          <div class="landing-brand-name" style="font-size:1rem;margin-bottom:4px;">HUE SOULBOUND CREDENTIALS</div>
+          <div style="font-size:0.82rem;color:var(--text-dim);">Đại học Huế · Môn ECO2432 · Nhóm 1 K58</div>
+        </div>
+        <div style="font-size:0.8rem;color:var(--text-dim);">Smart Contract: <code style="color:var(--primary);">ProjectCore.sol</code> · ERC-721 v5 OpenZeppelin · Sepolia Testnet</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const db = loadDatabase();
+      document.getElementById("statMinted").innerText = db.length;
+    });
+  </script>
+</body>
+</html>
