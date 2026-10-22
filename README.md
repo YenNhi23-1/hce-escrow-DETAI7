@@ -1,7 +1,7 @@
 # 🏅 HCE Soulbound Achievement Badge — Đề tài 7
 > **Học phần:** Tiền điện tử & Hợp đồng thông minh (ECO2432)  
 > **Khoa:** Hệ thống Thông tin Kinh tế — Trường Đại học Kinh tế, Đại học Huế  
-> **Khóa:** K58 / Năm học 2025–2026  
+> **Khóa:** K57 / Năm học 2025–2026  
 > **Repository GitHub:** [https://github.com/YenNhi23-1/hce-escrow-DETAI7.git](https://github.com/YenNhi23-1/hce-escrow-DETAI7.git)  
 > **Đường dẫn DApp Trực tuyến:** [https://yennhi23-1.github.io/hce-escrow-DETAI7/](https://yennhi23-1.github.io/hce-escrow-DETAI7/)  
 
@@ -15,8 +15,8 @@
 ## 👥 2. Thành viên nhóm & Mô hình làm việc
 | STT | Họ và tên | Mã sinh viên | Lớp | Vai trò đảm trách xuyên suốt |
 | :---: | :--- | :---: | :---: | :--- |
-| 1 | **Hoàng Thu Trang** | **23K4300021** | K58 | Đặc tả nghiệp vụ (BA), Hợp đồng thông minh (Solidity) & Rà soát an toàn (Audit Lead) |
-| 2 | **Phan Thị Yến Nhi** | **23K4300014** | K58 | Thiết kế kiến trúc Smart Contract, Giao diện Web DApp & Triển khai công khai (DevOps/QA) |
+| 1 | **Hoàng Thu Trang** | **23K4300021** | K57 | Đặc tả nghiệp vụ (BA), Hợp đồng thông minh (Solidity) & Rà soát an toàn (Audit Lead) |
+| 2 | **Phan Thị Yến Nhi** | **23K4300014** | K57 | Thiết kế kiến trúc Smart Contract, Giao diện Web DApp & Triển khai công khai (DevOps/QA) |
 
 *(Ghi chú quan trọng: Nhóm hoạt động theo mô hình **Pair Programming / Co-working bình đẳng**, cả hai sinh viên cùng đồng thực hiện toàn diện mọi nội dung, **không có chức danh trưởng nhóm**).*
 
@@ -33,7 +33,7 @@
 
 ## 📂 4. Cấu trúc Codebase (Chuẩn mực ECO2432)
 ```text
-hce-badge-k58/
+hce-badge-k57/
 ├── README.md                 # Giới thiệu tổng thể dự án và mục lục bài lab
 ├── AGENTS.md                 # Bộ quy tắc hướng dẫn AI hỗ trợ lập trình
 ├── AI_JOURNAL.md             # Nhật ký prompt AI, phân tích ảo giác và sửa lỗi
