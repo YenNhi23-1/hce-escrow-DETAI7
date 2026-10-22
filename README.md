@@ -15,8 +15,8 @@
 ## 👥 2. Thành viên nhóm & Mô hình làm việc
 | STT | Họ và tên | Mã sinh viên | Lớp | Vai trò đảm trách xuyên suốt |
 | :---: | :--- | :---: | :---: | :--- |
-| 1 | **Hoàng Thu Trang** | **23K4300021** | K58 | Đặc tả nghiệp vụ (BA), Hợp đồng thông minh (Solidity) & Rà soát an toàn (Audit Lead) |
-| 2 | **Phan Thị Yến Nhi** | **23K4300014** | K58 | Thiết kế kiến trúc Smart Contract, Giao diện Web DApp & Triển khai công khai (DevOps/QA) |
+| 1 | **Hoàng Thu Trang** | **23K4300021** | K57 | Đặc tả nghiệp vụ (BA), Hợp đồng thông minh (Solidity) & Rà soát an toàn (Audit Lead) |
+| 2 | **Phan Thị Yến Nhi** | **23K4300014** | K57 | Thiết kế kiến trúc Smart Contract, Giao diện Web DApp & Triển khai công khai (DevOps/QA) |
 
 *(Ghi chú quan trọng: Nhóm hoạt động theo mô hình **Pair Programming / Co-working bình đẳng**, cả hai sinh viên cùng đồng thực hiện toàn diện mọi nội dung, **không có chức danh trưởng nhóm**).*
 
