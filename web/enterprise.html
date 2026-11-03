@@ -15,7 +15,10 @@
     <!-- Navigation Bar -->
     <header class="page-top-nav">
       <div class="page-nav-breadcrumb">
-        <a href="index.html">🏠 Trang chủ</a>
+        <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+          <img src="/logo-hue-economics.png" alt="Logo ĐH Kinh tế Huế" class="nav-logo-img" onerror="this.style.display='none'">
+          <span style="opacity:0.7;">🏠 Trang chủ</span>
+        </a>
         <span>›</span>
         <strong>🏢 Cổng Doanh Nghiệp &amp; Xác Minh</strong>
       </div>
@@ -256,7 +259,7 @@
         return;
       }
 
-      const info = BADGE_TYPES[badge.badgeType] || { title: "Văn bằng thành tích", icon: "🎖️" };
+      const info = getBadgeInfo(badge);
 
       if (badge.isRevoked) {
         statusTag.className = "badge-tag";

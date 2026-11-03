@@ -4,150 +4,381 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HUE Soulbound Credentials — Hệ Thống Văn Bằng Số Đại Học Huế</title>
-  <meta name="description" content="Nền tảng quản lý, cấp phát và xác thực văn bằng thành tích sinh viên Đại học Huế trên blockchain.">
+  <meta name="description" content="Nền tảng quản lý, cấp phát và xác thực văn bằng, chứng chỉ số sinh viên Đại học Huế trên nền tảng Blockchain ERC-721 Soulbound Token.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="landing-body">
+
+  <!-- STICKY GLASSMORPHISM NAVBAR -->
   <header class="landing-nav">
     <div class="landing-nav-inner">
       <a href="index.html" class="landing-brand">
-        <div class="landing-brand-logo">🏛️</div>
+        <img src="/logo-hue-economics.png" alt="Logo Trường Đại học Kinh tế - Đại học Huế" class="landing-brand-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="landing-brand-logo-fallback" style="display:none;">🏛️</div>
         <div>
-          <div class="landing-brand-name">HUE CREDENTIALS</div>
-          <div class="landing-brand-sub">Đại học Huế · Hệ thống văn bằng số</div>
+          <div class="landing-brand-name">ĐH KINH TẾ · ĐẠI HỌC HUẾ</div>
+          <div class="landing-brand-sub">Hệ Thống Văn Bằng &amp; Thành Tích Số Blockchain</div>
         </div>
       </a>
       <div class="landing-nav-links">
+        <div class="network-status-pill">
+          <span class="status-dot-pulse"></span>
+          <span>Sepolia Testnet</span>
+        </div>
         <button class="btn-connect-metamask" onclick="handleWalletBtnClick()">🦊 Kết nối MetaMask</button>
-        <a href="contract.html" class="landing-nav-link">Đặc tả kỹ thuật</a>
-        <a href="student.html" class="btn-primary" style="text-decoration:none;">Đăng nhập →</a>
+        <a href="contract.html" class="landing-nav-link">Đặc tả Contract</a>
+        <a href="student.html" class="btn-primary" style="text-decoration:none; padding:8px 16px; font-size:0.86rem;">
+          Đăng Nhập →
+        </a>
       </div>
     </div>
   </header>
 
+  <!-- DUAL-COLUMN HERO SECTION -->
   <section class="landing-hero">
     <div class="landing-hero-inner">
-      <div class="landing-hero-badge">🔗 Powered by ERC-721 Soulbound Token · Sepolia Testnet</div>
-      <h1 class="landing-hero-title">Văn Bằng &amp; Thành Tích Số<br><span class="landing-hero-highlight">Đại Học Huế</span></h1>
-      <p class="landing-hero-desc">Hệ thống ứng dụng hợp đồng thông minh <strong>HUE-SBT</strong> để cấp phát, lưu trữ và xác thực vĩnh viễn toàn bộ văn bằng, chứng chỉ và danh hiệu khen thưởng của sinh viên trực tiếp trên blockchain — bất khả giả mạo, bất khả chuyển nhượng.</p>
-      <div class="landing-hero-cta">
-        <a href="student.html" class="btn-landing-primary">🎓 Tra Cứu Văn Bằng Cá Nhân</a>
-        <a href="enterprise.html" class="btn-landing-outline">🏢 Cổng Xác Minh Doanh Nghiệp</a>
+      
+      <!-- Left: Headline & CTA -->
+      <div>
+        <div class="hero-tag-badge">
+          <span>🏆</span>
+          <span>CHUẨN ERC-721 SOULBOUND TOKEN · BẢO CHỨNG BỞI ĐẠI HỌC HUẾ</span>
+        </div>
+
+        <h1 class="landing-hero-title">
+          Văn Bằng &amp; Thành Tích Số<br>
+          <span class="landing-hero-highlight">Bất Biến On-Chain</span>
+        </h1>
+
+        <p class="landing-hero-desc">
+          Nền tảng tiên phong ứng dụng công nghệ <strong>Soulbound Token (SBT)</strong> trên mạng Ethereum Sepolia: Chuyển đổi toàn bộ bằng tốt nghiệp, chứng nhận học thuật và danh hiệu khen thưởng thành tài sản số độc bản — <strong>chống làm giả tuyệt đối, khóa chuyển nhượng vĩnh viễn</strong> và cho phép doanh nghiệp thẩm định tức thì trong 0 giây.
+        </p>
+
+        <!-- Trust Badges -->
+        <div class="hero-trust-chips">
+          <div class="trust-chip">🔒 <strong>Khóa Soulbound</strong> (Bất khả chuyển nhượng)</div>
+          <div class="trust-chip">🔍 <strong>Etherscan Proof</strong> (Minh bạch toàn cầu)</div>
+          <div class="trust-chip">🛡️ <strong>OpenZeppelin v5</strong> (Chuẩn an toàn bảo mật)</div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="landing-hero-cta">
+          <a href="student.html" class="btn-landing-primary">
+            🎓 Cổng Sinh Viên Tra Cứu
+          </a>
+          <a href="admin.html" class="btn-landing-outline">
+            🏛️ Hội Đồng Cấp Bằng
+          </a>
+          <a href="enterprise.html" class="btn-landing-outline" style="border-style:dashed;">
+            🏢 Doanh Nghiệp Xác Thực
+          </a>
+        </div>
       </div>
+
+      <!-- Right: Interactive 3D Holographic Certificate Showcase -->
+      <div class="hero-visual-wrapper">
+        <div class="hero-cert-hologram">
+          <div class="cert-seal-badge">
+            <span>✨</span> SOULBOUND VERIFIED
+          </div>
+
+          <div class="cert-header">
+            <div class="cert-logo">🏛️</div>
+            <div class="cert-school-name">Đại Học Huế · Hue University</div>
+            <div class="cert-doc-title">CHỨNG NHẬN VINH DANH SỐ</div>
+            <div style="font-size:0.75rem; color:var(--text-dim);">Hệ Thống Token Định Danh Học Thuật (HUE-SBT)</div>
+          </div>
+
+          <div class="cert-body">
+            <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2px;">Trao tặng sinh viên:</div>
+            <div class="cert-student-name">Phan Thị Yến Nhi</div>
+            <div style="font-size:0.8rem; color:var(--text-muted); font-family:monospace; margin-bottom:8px;">MSSV: 23K4300014</div>
+            <div class="cert-badge-type">🏆 Sinh viên 5 tốt tiêu biểu cấp Đại học Huế</div>
+          </div>
+
+          <div style="background:var(--bg-subtle); border-radius:8px; padding:10px 12px; margin-bottom:14px; font-size:0.75rem; font-family:monospace; line-height:1.5;">
+            <div style="color:var(--text-dim);">🔑 Ví on-chain nhận bằng:</div>
+            <div style="color:var(--primary); font-weight:700; word-break:break-all;">0x71C26071493b86EFA7AC41b38f828a2aC41Ea47B</div>
+          </div>
+
+          <div class="cert-footer-meta">
+            <div>
+              <span style="font-weight:700; color:var(--gold);">Token ID: #001</span><br>
+              <span style="color:var(--text-dim);">Sepolia Block #681920</span>
+            </div>
+            <div style="text-align:right;">
+              <span style="display:inline-block; background:var(--emerald-bg); color:var(--emerald); border:1px solid var(--emerald-border); padding:2px 8px; border-radius:4px; font-weight:700;">
+                ✓ Đã Ký On-Chain
+              </span>
+            </div>
+          </div>
+
+          <!-- Floating Badges -->
+          <div class="floating-pill pill-1">
+            <span>⚡</span> Phí Gas: ~0.00003 ETH
+          </div>
+          <div class="floating-pill pill-2">
+            <span>🔒</span> Khóa Chuyển Nhượng 100%
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
+  <!-- QUICK SEARCH & INSTANT VERIFICATION BAR -->
+  <section class="landing-search-section">
+    <div class="search-box-card">
+      <span style="font-size:24px;">🔍</span>
+      <div class="search-input-wrapper">
+        <input 
+          type="text" 
+          id="inputHomeQuickSearch" 
+          class="search-input-field" 
+          placeholder="Tra cứu nhanh: Nhập Token ID (1, 2, 3) hoặc Mã Số Sinh Viên (23K4300014)..."
+          onkeydown="if(event.key==='Enter') executeHomeSearch();"
+        >
+      </div>
+      <button class="btn-search-fast" onclick="executeHomeSearch()">
+        Tra Cứu Nhanh
+      </button>
+    </div>
+
+    <!-- Quick search chips -->
+    <div style="display:flex; align-items:center; gap:8px; margin-top:10px; padding:0 8px; flex-wrap:wrap;">
+      <span style="font-size:0.78rem; color:var(--text-dim); font-weight:600;">Gợi ý tra cứu nhanh:</span>
+      <button class="btn-outline" style="font-size:0.74rem; padding:3px 8px; border-radius:var(--radius-full);" onclick="fillAndSearch('1')">Token #1 (Yến Nhi)</button>
+      <button class="btn-outline" style="font-size:0.74rem; padding:3px 8px; border-radius:var(--radius-full);" onclick="fillAndSearch('2')">Token #2 (Quốc Bảo)</button>
+      <button class="btn-outline" style="font-size:0.74rem; padding:3px 8px; border-radius:var(--radius-full);" onclick="fillAndSearch('23K4300085')">MSSV: 23K4300085 (Diệu Linh)</button>
+    </div>
+
+    <!-- Search Result Box (Hidden by default) -->
+    <div id="homeSearchResultBox" style="display:none; margin-top:16px;"></div>
+  </section>
+
+  <!-- REAL-TIME BLOCKCHAIN STATS BAR -->
   <section class="landing-stats-bar">
     <div class="landing-stats-inner">
       <div class="landing-stat-item">
         <div class="landing-stat-num" id="statMinted">3</div>
-        <div class="landing-stat-label">HUE-SBT đã phát hành</div>
+        <div class="landing-stat-label">Văn Bằng Đã Đúc On-Chain</div>
       </div>
-      <div class="landing-stat-divider"></div>
-      <div class="landing-stat-item">
-        <div class="landing-stat-num">50</div>
-        <div class="landing-stat-label">Hạn mức đợt khen thưởng</div>
-      </div>
-      <div class="landing-stat-divider"></div>
       <div class="landing-stat-item">
         <div class="landing-stat-num">10</div>
-        <div class="landing-stat-label">Danh mục vinh danh</div>
+        <div class="landing-stat-label">Danh Mục Vinh Danh Chuẩn Hóa</div>
       </div>
-      <div class="landing-stat-divider"></div>
       <div class="landing-stat-item">
-        <div class="landing-stat-num">0%</div>
-        <div class="landing-stat-label">Phí cấp phát (miễn phí)</div>
+        <div class="landing-stat-num">100%</div>
+        <div class="landing-stat-label">Bảo Chứng Mật Mã Toàn Vẹn</div>
+      </div>
+      <div class="landing-stat-item">
+        <div class="landing-stat-num">0 Giây</div>
+        <div class="landing-stat-label">Thời Gian Thẩm Định Toàn Cầu</div>
       </div>
     </div>
   </section>
 
+  <!-- 4 MAIN COMMAND PORTALS SECTION -->
   <section class="landing-portals">
     <div class="landing-portals-inner">
       <div class="landing-section-header">
-        <h2 class="landing-section-title">Chọn Cổng Thông Tin</h2>
-        <p class="landing-section-desc">Mỗi cổng được bảo vệ bởi hệ thống xác thực riêng, chỉ cho phép đúng vai trò truy cập.</p>
+        <span class="section-eyebrow">HỆ SINH THÁI ĐẠI HỌC HUẾ</span>
+        <h2 class="landing-section-title">Các Cổng Thông Tin Chính</h2>
+        <p class="landing-section-desc">
+          Hệ thống được phân quyền nghiêm ngặt theo mô hình quản trị số: Hội đồng trường phát hành, sinh viên sở hữu và doanh nghiệp xác thực độc lập.
+        </p>
       </div>
+
       <div class="portal-cards-grid">
+        <!-- Portal 1: Admin -->
         <a href="admin.html" class="portal-card portal-card--admin">
           <div class="portal-card-icon">🏛️</div>
-          <div class="portal-card-content">
-            <h3 class="portal-card-title">Ban Quản Trị &amp; Cấp Phát</h3>
-            <p class="portal-card-desc">Dành cho Hội đồng Khen thưởng Đại học Huế. Ký duyệt và phát hành huy hiệu thành tích on-chain, quản lý sổ cái văn bằng.</p>
-            <div class="portal-card-meta"><span class="portal-card-tag">🔐 Yêu cầu xác thực</span><span class="portal-card-arrow">→</span></div>
+          <h3 class="portal-card-title">Ban Quản Trị &amp; Cấp Bằng</h3>
+          <p class="portal-card-desc">
+            Dành cho Hội đồng Khen thưởng Đại học Huế. Thực hiện ký duyệt giao dịch trừ phí gas Sepolia qua ví MetaMask thật, phát hành và quản lý sổ cái văn bằng số.
+          </p>
+          <div class="portal-card-meta">
+            <span class="portal-card-tag" style="color:var(--gold);">🔐 Quyền Admin On-Chain</span>
+            <span class="portal-card-arrow">→</span>
           </div>
         </a>
+
+        <!-- Portal 2: Student -->
         <a href="student.html" class="portal-card portal-card--student">
           <div class="portal-card-icon">🎓</div>
-          <div class="portal-card-content">
-            <h3 class="portal-card-title">Cổng Sinh Viên</h3>
-            <p class="portal-card-desc">Đăng nhập bằng MSSV để xem toàn bộ huy hiệu thành tích số cá nhân. Tạo link xác minh chia sẻ CV cho nhà tuyển dụng.</p>
-            <div class="portal-card-meta"><span class="portal-card-tag">🔐 Đăng nhập MSSV</span><span class="portal-card-arrow">→</span></div>
+          <h3 class="portal-card-title">Cổng Tra Cứu Sinh Viên</h3>
+          <p class="portal-card-desc">
+            Sinh viên đăng nhập bằng MSSV để xem toàn bộ huy hiệu danh dự cá nhân, tạo link chia sẻ CV trực tuyến và thử nghiệm tính năng chống mua bán chuyển nhượng.
+          </p>
+          <div class="portal-card-meta">
+            <span class="portal-card-tag" style="color:var(--primary);">🎓 Đăng nhập bằng MSSV</span>
+            <span class="portal-card-arrow">→</span>
           </div>
         </a>
+
+        <!-- Portal 3: Enterprise -->
         <a href="enterprise.html" class="portal-card portal-card--enterprise">
           <div class="portal-card-icon">🏢</div>
-          <div class="portal-card-content">
-            <h3 class="portal-card-title">Cổng Doanh Nghiệp &amp; Xác Minh</h3>
-            <p class="portal-card-desc">Nhà tuyển dụng và đối tác học thuật tra cứu, thẩm định tính xác thực văn bằng ứng viên trực tiếp trên blockchain.</p>
-            <div class="portal-card-meta"><span class="portal-card-tag">🔐 Tài khoản doanh nghiệp</span><span class="portal-card-arrow">→</span></div>
+          <h3 class="portal-card-title">Cổng Thẩm Định Doanh Nghiệp</h3>
+          <p class="portal-card-desc">
+            Nhà tuyển dụng (FPT, Viettel, VNG...) tra cứu trực tiếp tính xác thực của văn bằng qua mã Token ID hoặc quét QR mà không cần tài khoản, không tốn phí.
+          </p>
+          <div class="portal-card-meta">
+            <span class="portal-card-tag" style="color:var(--emerald);">🌐 Tra cứu mở toàn cầu</span>
+            <span class="portal-card-arrow">→</span>
           </div>
         </a>
+
+        <!-- Portal 4: Smart Contract -->
         <a href="contract.html" class="portal-card portal-card--contract">
           <div class="portal-card-icon">🛡️</div>
-          <div class="portal-card-content">
-            <h3 class="portal-card-title">Đặc Tả &amp; Smart Contract</h3>
-            <p class="portal-card-desc">Thông tin kỹ thuật công khai về kiến trúc ERC-721 Soulbound Token, cơ chế khóa chuyển nhượng và thông số mạng Sepolia.</p>
-            <div class="portal-card-meta"><span class="portal-card-tag portal-card-tag--public">🌐 Công khai</span><span class="portal-card-arrow">→</span></div>
+          <h3 class="portal-card-title">Đặc Tả Smart Contract</h3>
+          <p class="portal-card-desc">
+            Hồ sơ kỹ thuật minh bạch về mã nguồn Solidity <code>ProjectCore.sol</code>, cơ chế khóa hàm <code>transferFrom</code> và cấu hình mạng thử nghiệm Sepolia.
+          </p>
+          <div class="portal-card-meta">
+            <span class="portal-card-tag" style="color:#4f46e5;">💻 Mã nguồn công khai</span>
+            <span class="portal-card-arrow">→</span>
           </div>
         </a>
       </div>
     </div>
   </section>
 
+  <!-- COMPARISON: TRADITIONAL DEGREE VS SOULBOUND TOKEN -->
+  <section class="landing-compare-section">
+    <div class="landing-portals-inner">
+      <div class="landing-section-header">
+        <span class="section-eyebrow">TẠI SAO LÀ SOULBOUND TOKEN?</span>
+        <h2 class="landing-section-title">Đột Phá So Với Bằng Cấp Truyền Thống</h2>
+        <p class="landing-section-desc">
+          Công nghệ Soulbound Token giải quyết triệt để vấn nạn bằng giả, chi phí xác minh rườm rà và nguy cơ thất lạc tài liệu giấy.
+        </p>
+      </div>
+
+      <div class="compare-grid">
+        <!-- Col 1: Traditional -->
+        <div class="compare-col compare-col--trad">
+          <div class="compare-header">
+            <span style="font-size:28px;">📄</span>
+            <h3 class="compare-title">Văn Bằng Giấy Truyền Thống</h3>
+          </div>
+          <ul class="compare-list">
+            <li class="compare-item">
+              <span class="compare-item-icon">❌</span>
+              <span><strong>Dễ bị làm giả:</strong> Phôi bằng, con dấu và chữ ký có thể bị sao chép tinh vi mà mắt thường không thể phân biệt.</span>
+            </li>
+            <li class="compare-item">
+              <span class="compare-item-icon">❌</span>
+              <span><strong>Thủ tục xác minh tốn kém:</strong> Doanh nghiệp phải gửi công văn về trường, mất từ 7–14 ngày chờ phản hồi.</span>
+            </li>
+            <li class="compare-item">
+              <span class="compare-item-icon">❌</span>
+              <span><strong>Nguy cơ hư hại:</strong> Dễ rách nát, cháy nổ, ẩm mốc hoặc thất lạc khi chuyển nhà, xin việc.</span>
+            </li>
+            <li class="compare-item">
+              <span class="compare-item-icon">❌</span>
+              <span><strong>Không tương thích kinh tế số:</strong> Khó tích hợp vào CV điện tử, hồ sơ LinkedIn hay hồ sơ học thuật quốc tế.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 2: HUE-SBT -->
+        <div class="compare-col compare-col--sbt">
+          <div class="compare-header">
+            <span style="font-size:28px;">💎</span>
+            <h3 class="compare-title">Văn Bằng Số HUE-SBT Blockchain</h3>
+          </div>
+          <ul class="compare-list">
+            <li class="compare-item">
+              <span class="compare-item-icon">✅</span>
+              <span><strong>Bất khả làm giả 100%:</strong> Ghi đè vào chuỗi khối Ethereum bằng mật mã học, không ai có thể can thiệp sửa đổi.</span>
+            </li>
+            <li class="compare-item">
+              <span class="compare-item-icon">✅</span>
+              <span><strong>Xác minh tức thì 0 giây:</strong> Quét QR hoặc tra cứu Token ID trực tiếp trên Sepolia Etherscan công khai.</span>
+            </li>
+            <li class="compare-item">
+              <span class="compare-item-icon">✅</span>
+              <span><strong>Tồn tại vĩnh viễn:</strong> Lưu trữ phân tán trên blockchain toàn cầu, không bao giờ mất mát theo thời gian.</span>
+            </li>
+            <li class="compare-item">
+              <span class="compare-item-icon">✅</span>
+              <span><strong>Bất khả chuyển nhượng:</strong> Khóa cứng vào danh tính sinh viên, chặn tuyệt đối hành vi mua bán hay trao đổi bằng cấp.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4-STEP WORKFLOW LIFECYCLE -->
   <section class="landing-how">
     <div class="landing-portals-inner">
       <div class="landing-section-header">
-        <h2 class="landing-section-title">Cơ Chế Hoạt Động</h2>
+        <span class="section-eyebrow">QUY TRÌNH HOẠT ĐỘNG</span>
+        <h2 class="landing-section-title">Vận Hành Khép Kín 4 Bước</h2>
+        <p class="landing-section-desc">Mọi thao tác phát hành và thẩm định đều tuân theo nguyên tắc phân quyền minh bạch.</p>
       </div>
+
       <div class="how-steps">
         <div class="how-step">
-          <div class="how-step-num">01</div>
-          <h4 class="how-step-title">Hội đồng ký duyệt</h4>
-          <p class="how-step-desc">Ban Quản trị đăng nhập, nhập thông tin sinh viên được vinh danh và phát hành HUE-SBT on-chain.</p>
+          <div class="how-step-num">1</div>
+          <h4 class="how-step-title">Xét Duyệt Hồ Sơ</h4>
+          <p class="how-step-desc">Hội đồng Khen thưởng Đại học Huế thẩm định danh sách sinh viên đủ điều kiện nhận danh hiệu khen thưởng.</p>
         </div>
-        <div class="how-step-arrow">→</div>
+
         <div class="how-step">
-          <div class="how-step-num">02</div>
-          <h4 class="how-step-title">Token gắn vĩnh viễn</h4>
-          <p class="how-step-desc">Huy hiệu được đúc vào ví on-chain của sinh viên. Cơ chế Soulbound ngăn mọi hành vi chuyển nhượng.</p>
+          <div class="how-step-num">2</div>
+          <h4 class="how-step-title">Ký Số &amp; Đúc Token</h4>
+          <p class="how-step-desc">Ban Quản trị kết nối ví MetaMask ký duyệt giao dịch, trừ phí gas testnet và đúc HUE-SBT lên Sepolia.</p>
         </div>
-        <div class="how-step-arrow">→</div>
+
         <div class="how-step">
-          <div class="how-step-num">03</div>
-          <h4 class="how-step-title">Sinh viên tra cứu</h4>
-          <p class="how-step-desc">Sinh viên đăng nhập bằng MSSV, xem thành tích và tạo link xác minh để chia sẻ với nhà tuyển dụng.</p>
+          <div class="how-step-num">3</div>
+          <h4 class="how-step-title">Khóa Soulbound Vào Ví</h4>
+          <p class="how-step-desc">Văn bằng được gắn cố định vào ví sinh viên. Mọi lệnh chuyển nhượng mua bán đều bị Smart Contract hủy bỏ (revert).</p>
         </div>
-        <div class="how-step-arrow">→</div>
+
         <div class="how-step">
-          <div class="how-step-num">04</div>
-          <h4 class="how-step-title">Doanh nghiệp xác minh</h4>
-          <p class="how-step-desc">Nhà tuyển dụng tra cứu theo Token ID hoặc địa chỉ ví — kết quả tức thì, không qua trường.</p>
+          <div class="how-step-num">4</div>
+          <h4 class="how-step-title">Doanh Nghiệp Đối Soát</h4>
+          <p class="how-step-desc">Nhà tuyển dụng tra cứu trên cổng thẩm định hoặc đối chiếu mã giao dịch trực tiếp trên trình khám phá Etherscan.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ACADEMIC FOOTER -->
   <footer class="landing-footer">
     <div class="landing-portals-inner">
-      <div class="landing-footer-inner">
-        <div>
-          <div class="landing-brand-name" style="font-size:1rem;margin-bottom:4px;">HUE SOULBOUND CREDENTIALS</div>
-          <div style="font-size:0.82rem;color:var(--text-dim);">Đại học Huế · Môn ECO2432 · Nhóm 1 K58</div>
+      <div class="footer-top">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="font-size:32px;">🏛️</div>
+          <div>
+            <div style="font-size:1.1rem; font-weight:900; color:#fff;">ĐẠI HỌC HUẾ · HUE SOULBOUND CREDENTIALS</div>
+            <div style="font-size:0.82rem; color:#94a3b8;">Đề tài nghiên cứu ứng dụng Blockchain trong số hóa văn bằng giáo dục đại học</div>
+          </div>
         </div>
-        <div style="font-size:0.8rem;color:var(--text-dim);">Smart Contract: <code style="color:var(--primary);">ProjectCore.sol</code> · ERC-721 v5 OpenZeppelin · Sepolia Testnet</div>
+
+        <div style="display:flex; gap:16px; font-size:0.85rem; font-weight:600;">
+          <a href="admin.html">Quản Trị</a>
+          <a href="student.html">Sinh Viên</a>
+          <a href="enterprise.html">Doanh Nghiệp</a>
+          <a href="contract.html">Smart Contract</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          Môn học: <strong>ECO2432 — Công nghệ Blockchain &amp; Smart Contract</strong> · Nhóm 1 K58 Đại học Huế
+        </div>
+        <div>
+          Chuẩn kỹ thuật: <code>ERC-721 Soulbound</code> · Mạng: <code>Sepolia Ethereum (0xaa36a7)</code>
+        </div>
       </div>
     </div>
   </footer>
@@ -156,8 +387,80 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const db = loadDatabase();
-      document.getElementById("statMinted").innerText = db.length;
+      const countEl = document.getElementById("statMinted");
+      if (countEl) countEl.innerText = db.length;
     });
+
+    function fillAndSearch(query) {
+      const input = document.getElementById("inputHomeQuickSearch");
+      if (input) {
+        input.value = query;
+        executeHomeSearch();
+      }
+    }
+
+    function executeHomeSearch() {
+      const query = document.getElementById("inputHomeQuickSearch").value.trim().toLowerCase();
+      const resultBox = document.getElementById("homeSearchResultBox");
+      if (!query) {
+        showToast("Vui lòng nhập Token ID hoặc Mã Số Sinh Viên để tra cứu!", "info");
+        return;
+      }
+
+      const db = loadDatabase();
+      const match = db.find(b => 
+        b.tokenId.toString() === query || 
+        b.studentId.toLowerCase() === query ||
+        b.recipient.toLowerCase() === query
+      );
+
+      resultBox.style.display = "block";
+
+      if (!match) {
+        resultBox.innerHTML = `
+          <div style="background:#fff1f2; border:1.5px solid #fecdd3; border-radius:12px; padding:18px; text-align:center;">
+            <div style="font-size:24px; margin-bottom:6px;">❌</div>
+            <div style="font-weight:800; color:#9f1239; font-size:1rem;">Không tìm thấy văn bằng phù hợp</div>
+            <p style="font-size:0.85rem; color:#475569; margin:4px 0 0 0;">
+              Không có dữ liệu cho từ khóa "<strong>${query}</strong>". Hãy kiểm tra lại Token ID hoặc MSSV.
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      const info = getBadgeInfo(match);
+      resultBox.innerHTML = `
+        <div style="background:#ffffff; border:2px solid #22c55e; border-radius:14px; padding:20px; box-shadow:0 10px 25px rgba(34, 197, 94, 0.15);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; border-bottom:1px solid #f1f5f9; padding-bottom:10px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:32px;">${info.icon}</span>
+              <div>
+                <span class="badge-tag" style="background:#ecfdf5; color:#065f46; border-color:#a7f3d0; margin-bottom:4px; display:inline-block;">✓ Văn Bằng Hợp Lệ On-Chain</span>
+                <h4 style="font-size:1.1rem; font-weight:800; color:var(--text-main); margin:0;">${info.title}</h4>
+              </div>
+            </div>
+            <span style="font-weight:900; color:var(--gold); font-size:1.1rem;">Token #${match.tokenId}</span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; font-size:0.86rem; margin-bottom:14px; background:#f8fafc; padding:12px; border-radius:8px;">
+            <div>👤 <strong>Sinh viên:</strong> ${match.studentName}</div>
+            <div>🎓 <strong>MSSV:</strong> <code style="color:var(--primary); font-weight:700;">${match.studentId}</code></div>
+            <div>📅 <strong>Ngày cấp:</strong> ${match.issuedAt}</div>
+            <div>🔑 <strong>Ví nhận:</strong> <code style="color:var(--text-muted); font-size:0.75rem;">${formatAddress(match.recipient)}</code></div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-size:0.8rem; color:var(--text-dim);">
+              ${match.txHash ? `🔗 TxHash: <a href="https://sepolia.etherscan.io/tx/${match.txHash}" target="_blank" style="color:var(--primary); font-family:monospace;">${formatAddress(match.txHash)} ↗</a>` : '🔒 Lưu trữ on-chain chuẩn SBT'}
+            </div>
+            <a href="enterprise.html" class="btn-primary" style="font-size:0.8rem; padding:6px 14px; text-decoration:none;">
+              Xem Chi Tiết Tại Cổng Xác Minh →
+            </a>
+          </div>
+        </div>
+      `;
+    }
   </script>
 </body>
 </html>

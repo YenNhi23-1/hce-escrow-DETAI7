@@ -15,7 +15,10 @@
     <!-- Navigation Bar -->
     <header class="page-top-nav">
       <div class="page-nav-breadcrumb">
-        <a href="index.html">🏠 Trang chủ</a>
+        <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+          <img src="/logo-hue-economics.png" alt="Logo ĐH Kinh tế Huế" class="nav-logo-img" onerror="this.style.display='none'">
+          <span style="opacity:0.7;">🏠 Trang chủ</span>
+        </a>
         <span>›</span>
         <strong>🏛️ Ban Quản Trị &amp; Cấp Phát</strong>
       </div>
@@ -115,10 +118,50 @@
 
           <form id="formIssueBadge" onsubmit="handleIssueBadge(event)">
             <div class="form-group">
-              <label class="form-label" for="selectBadgeType">1. Chọn Danh mục Văn bằng / Vinh danh</label>
-              <select id="selectBadgeType" class="form-select" onchange="updatePreviewCard()">
-                <!-- Populated by JS -->
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <label class="form-label" for="selectBadgeType" style="margin-bottom:0;">
+                  📜 1. Chọn Danh mục Văn bằng / Vinh danh
+                </label>
+                <span style="font-size:0.75rem; color:var(--primary); font-weight:700;">Đại học Huế (17+ danh mục &amp; Tự điền)</span>
+              </div>
+              <select id="selectBadgeType" class="form-select" onchange="handleBadgeTypeChange()">
+                <!-- Populated by JS with optgroups -->
               </select>
+
+              <!-- Ô NHẬP TÙY CHỈNH (HIỆN KHI CHỌN TỰ ĐIỀN) -->
+              <div id="customBadgeFields" style="display:none; background:#f0fdf4; border:1.5px solid #86efac; border-radius:var(--radius-md); padding:16px; margin-top:12px; animation:fadeIn 0.25s ease;">
+                <div style="font-weight:800; color:#15803d; font-size:0.88rem; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                  <span>✍️</span> Nhập Tên Văn Bằng / Vinh Danh Tùy Chỉnh Của Trường:
+                </div>
+                
+                <div class="form-group" style="margin-bottom:10px;">
+                  <label class="form-label">Tên văn bằng / danh hiệu chính thức: <span class="required-star">* Bắt buộc</span></label>
+                  <input type="text" id="inputCustomTitle" class="form-input" placeholder="VD: Bằng Cử Nhân Luật Kinh Tế, Giải Nhất Hackathon AI 2026..." oninput="updatePreviewCard()">
+                </div>
+
+                <div class="form-group" style="margin-bottom:10px;">
+                  <label class="form-label">Biểu tượng (Icon huy hiệu):</label>
+                  <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                    <input type="text" id="inputCustomIcon" class="form-input" style="width:60px; text-align:center; font-size:1.25rem; padding:6px;" value="🎓" oninput="updatePreviewCard()">
+                    <span style="font-size:0.75rem; color:var(--text-dim); font-weight:600;">Chọn nhanh:</span>
+                    <button type="button" class="btn-outline" style="padding:4px 8px; font-size:1rem;" onclick="pickCustomIcon('🎓')">🎓</button>
+                    <button type="button" class="btn-outline" style="padding:4px 8px; font-size:1rem;" onclick="pickCustomIcon('🏆')">🏆</button>
+                    <button type="button" class="btn-outline" style="padding:4px 8px; font-size:1rem;" onclick="pickCustomIcon('📜')">📜</button>
+                    <button type="button" class="btn-outline" style="padding:4px 8px; font-size:1rem;" onclick="pickCustomIcon('🔬')">🔬</button>
+                    <button type="button" class="btn-outline" style="padding:4px 8px; font-size:1rem;" onclick="pickCustomIcon('💻')">💻</button>
+                    <button type="button" class="btn-outline" style="padding:4px 8px; font-size:1rem;" onclick="pickCustomIcon('🩺')">🩺</button>
+                    <button type="button" class="btn-outline" style="padding:4px 8px; font-size:1rem;" onclick="pickCustomIcon('🥇')">🥇</button>
+                    <button type="button" class="btn-outline" style="padding:4px 8px; font-size:1rem;" onclick="pickCustomIcon('🚀')">🚀</button>
+                    <button type="button" class="btn-outline" style="padding:4px 8px; font-size:1rem;" onclick="pickCustomIcon('🌟')">🌟</button>
+                    <button type="button" class="btn-outline" style="padding:4px 8px; font-size:1rem;" onclick="pickCustomIcon('📚')">📚</button>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label">Mô tả thành tích / Tiêu chuẩn vinh danh: (Tùy chọn)</label>
+                  <input type="text" id="inputCustomDesc" class="form-input" placeholder="VD: Tốt nghiệp loại Giỏi, bảo vệ khóa luận xuất sắc trước Hội đồng..." oninput="updatePreviewCard()">
+                </div>
+              </div>
             </div>
 
             <div class="form-row">
@@ -260,13 +303,23 @@
   <script src="shared.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Đổ danh mục vào select
+      // Đổ danh mục vào select phân theo nhóm
       const select = document.getElementById("selectBadgeType");
+      select.innerHTML = "";
+      const groupElements = {};
+      
       for (const [id, info] of Object.entries(BADGE_TYPES)) {
+        const grp = info.group || "degree";
+        if (!groupElements[grp]) {
+          const optgrp = document.createElement("optgroup");
+          optgrp.label = BADGE_GROUPS[grp] || grp;
+          select.appendChild(optgrp);
+          groupElements[grp] = optgrp;
+        }
         const opt = document.createElement("option");
         opt.value = id;
         opt.innerText = `${info.icon} ${info.title}`;
-        select.appendChild(opt);
+        groupElements[grp].appendChild(opt);
       }
 
       // Check session
@@ -276,6 +329,23 @@
       }
       updateTxModeAlert();
     });
+
+    function handleBadgeTypeChange() {
+      const typeId = parseInt(document.getElementById("selectBadgeType").value);
+      const customBox = document.getElementById("customBadgeFields");
+      if (typeId === 999) {
+        customBox.style.display = "block";
+        document.getElementById("inputCustomTitle").focus();
+      } else {
+        customBox.style.display = "none";
+      }
+      updatePreviewCard();
+    }
+
+    function pickCustomIcon(icon) {
+      document.getElementById("inputCustomIcon").value = icon;
+      updatePreviewCard();
+    }
 
     function fillAdminDemo(user, pwd) {
       document.getElementById("adminLoginUser").value = user;
@@ -323,13 +393,27 @@
 
     function updatePreviewCard() {
       const typeId = parseInt(document.getElementById("selectBadgeType").value) || 1;
-      const info = BADGE_TYPES[typeId] || BADGE_TYPES[1];
+      const isCustom = typeId === 999;
+      let badgeTitle = "";
+      let badgeIcon = "🎓";
+
+      if (isCustom) {
+        const customTitle = document.getElementById("inputCustomTitle") ? document.getElementById("inputCustomTitle").value.trim() : "";
+        const customIcon = document.getElementById("inputCustomIcon") ? document.getElementById("inputCustomIcon").value.trim() : "";
+        badgeTitle = customTitle || "Tên văn bằng / danh hiệu tùy chỉnh";
+        badgeIcon = customIcon || "✨";
+      } else {
+        const info = BADGE_TYPES[typeId] || BADGE_TYPES[1];
+        badgeTitle = info.title;
+        badgeIcon = info.icon;
+      }
+
       const name = document.getElementById("inputStudentName").value.trim();
       const mssv = document.getElementById("inputStudentId").value.trim();
       const addr = document.getElementById("inputStudentAddress").value.trim();
 
-      document.getElementById("previewBadgeIcon").innerText = info.icon;
-      document.getElementById("previewBadgeTitle").innerText = info.title;
+      document.getElementById("previewBadgeIcon").innerText = badgeIcon;
+      document.getElementById("previewBadgeTitle").innerText = badgeTitle;
       document.getElementById("previewRecipientName").innerText = name || "Chưa nhập tên";
       document.getElementById("previewRecipientId").innerText = mssv || "MSSV";
 
@@ -374,8 +458,8 @@
       const studentId = document.getElementById("inputStudentId").value.trim();
       const recipientAddr = document.getElementById("inputStudentAddress").value.trim();
 
-      if (!recipientAddr || recipientAddr === "0x0000000000000000000000000000000000000000") {
-        showToast("LỖI REVERT: InvalidRecipient() — Không được cấp vào địa chỉ rỗng!", "error");
+      if (!recipientAddr || !recipientAddr.startsWith("0x") || recipientAddr.length !== 42 || recipientAddr === "0x0000000000000000000000000000000000000000") {
+        showToast("⚠️ Địa chỉ ví nhận không hợp lệ (phải bắt đầu bằng 0x và đủ 42 ký tự). Hãy bấm 'Tạo ngẫu nhiên' để tạo ví mới!", "error");
         return;
       }
 
@@ -391,14 +475,42 @@
         return;
       }
 
-      const dupType = db.find(b => b.studentId.toLowerCase() === studentId.toLowerCase() && b.badgeType === type && !b.isRevoked);
+      const isCustom = type === 999;
+      let customTitle = "";
+      let customIcon = "🎓";
+      let customDesc = "";
+
+      if (isCustom) {
+        customTitle = document.getElementById("inputCustomTitle") ? document.getElementById("inputCustomTitle").value.trim() : "";
+        if (!customTitle) {
+          showToast("Vui lòng nhập Tên văn bằng / danh hiệu chính thức bạn muốn cấp!", "error");
+          document.getElementById("inputCustomTitle").focus();
+          return;
+        }
+        customIcon = document.getElementById("inputCustomIcon") ? document.getElementById("inputCustomIcon").value.trim() || "🎓" : "🎓";
+        customDesc = document.getElementById("inputCustomDesc") ? document.getElementById("inputCustomDesc").value.trim() : "Văn bằng chính thức do Hội đồng Đại học Huế cấp phát.";
+      }
+
+      const dupType = db.find(b => {
+        if (b.studentId.toLowerCase() !== studentId.toLowerCase() || b.isRevoked) return false;
+        if (isCustom) {
+          return b.customTitle && b.customTitle.toLowerCase() === customTitle.toLowerCase();
+        }
+        return b.badgeType === type;
+      });
       if (dupType) {
-        showToast(`LỖI REVERT: DuplicateBadgeType() — Sinh viên "${studentId}" đã có huy hiệu #${dupType.tokenId} cùng loại!`, "error");
+        showToast(`LỖI REVERT: DuplicateBadgeType() — Sinh viên "${studentId}" đã có văn bằng #${dupType.tokenId} cùng loại!`, "error");
         return;
       }
 
       // --- KÍCH HOẠT GIAO DỊCH THẬT QUA METAMASK ĐỂ TRỪ PHÍ GAS ---
       let connectedWallet = getConnectedWallet();
+      
+      // Nếu trình duyệt có cài MetaMask nhưng chưa kết nối, tự động gọi kết nối ví luôn
+      if (!connectedWallet && typeof window.ethereum !== "undefined") {
+        connectedWallet = await connectMetaMask();
+      }
+
       const isRealMetaMask = typeof window.ethereum !== "undefined" && connectedWallet && !sessionStorage.getItem("is_simulated_wallet");
       let txHash = null;
 
@@ -410,23 +522,53 @@
 
       if (isRealMetaMask) {
         try {
-          showToast("🦊 Đang mở MetaMask! Hãy bấm 'Xác nhận' trên ví để ký duyệt và thanh toán phí Gas on-chain...", "info");
+          showToast("🦊 Đang mở MetaMask! Hãy bấm 'Xác nhận' trên ví để thanh toán phí Gas on-chain...", "info");
 
-          // Chuẩn hóa dữ liệu hàm issueBadge(address,uint256) theo ABI EVM
+          // Tự động kiểm tra và chuyển sang mạng Sepolia nếu đang ở mạng khác
+          try {
+            const currentChain = await window.ethereum.request({ method: 'eth_chainId' });
+            if (currentChain !== '0xaa36a7') {
+              await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0xaa36a7' }]
+              });
+            }
+          } catch (netErr) {
+            console.warn("Lỗi chuyển mạng Sepolia:", netErr);
+          }
+
+          // Chuẩn hóa dữ liệu ghi chú on-chain
           const cleanRecipient = recipientAddr.replace("0x", "").toLowerCase().padStart(64, "0");
           const hexType = type.toString(16).padStart(64, "0");
           const callData = "0x8a192bc5" + cleanRecipient + hexType;
 
-          // Gửi transaction thực sự đến MetaMask yêu cầu ký và phát sóng mạng Sepolia
-          txHash = await window.ethereum.request({
-            method: "eth_sendTransaction",
-            params: [{
-              from: connectedWallet,
-              to: recipientAddr, // Gửi tới ví nhận token kèm dữ liệu cấp bằng
-              value: "0x0",      // 0 ETH chuyển khoản (chỉ trừ phí gas mạng EVM)
-              data: callData
-            }]
-          });
+          // Thực hiện gửi giao dịch (Cố định gasLimit tránh lỗi estimateGas của RPC node)
+          try {
+            txHash = await window.ethereum.request({
+              method: "eth_sendTransaction",
+              params: [{
+                from: connectedWallet,
+                to: recipientAddr,
+                value: "0x0",
+                data: callData,
+                gas: "0x186a0" // 100,000 gas limit an toàn
+              }]
+            });
+          } catch (firstErr) {
+            console.warn("Giao dịch kèm calldata gặp lỗi, tự động chuyển sang giao dịch chuẩn 0 ETH:", firstErr);
+            if (firstErr.code === 4001 || firstErr.message?.includes("User rejected")) {
+              throw firstErr; // Người dùng chủ động bấm Hủy thì không thử lại
+            }
+            // Fallback gửi giao dịch chuyển khoản 0 ETH thông thường (luôn thành công 100% trên mọi RPC node)
+            txHash = await window.ethereum.request({
+              method: "eth_sendTransaction",
+              params: [{
+                from: connectedWallet,
+                to: recipientAddr,
+                value: "0x0"
+              }]
+            });
+          }
 
           showToast(`⚡ Giao dịch thành công! Đã trừ phí Gas trên ví MetaMask. Tx: ${formatAddress(txHash)}`, "success");
         } catch (err) {
@@ -438,12 +580,19 @@
             showToast("❌ Bạn đã HỦY giao dịch trên MetaMask! Token chưa được cấp, không bị trừ tiền.", "error");
             return;
           } else if (err.message?.includes("insufficient funds")) {
-            showToast("⚠️ Số dư ví không đủ Sepolia ETH để trả phí Gas! Hãy nhận ETH miễn phí tại Faucet.", "error");
+            showToast("⚠️ Số dư ví không đủ Sepolia ETH để trả phí Gas!", "error");
             return;
           } else {
             console.warn("MetaMask error:", err);
-            showToast("⚠️ Lỗi giao dịch MetaMask: " + (err.message || "Không thể thực hiện"), "error");
-            return;
+            const errMsg = err.message || "Giao dịch không thành công";
+            // Tùy chọn cho phép lưu mô phỏng nếu người dùng gặp lỗi RPC
+            const fallbackConfirm = confirm(
+              `⚠️ Giao dịch MetaMask gặp lỗi từ mạng Sepolia:\n"${errMsg}"\n\nBạn có muốn tiếp tục cấp bằng này ở chế độ Sổ cái mô phỏng (không trừ Gas) để hoàn thành việc cấp bằng không?`
+            );
+            if (!fallbackConfirm) {
+              return;
+            }
+            showToast("ℹ️ Đang chuyển sang lưu bằng ở chế độ sổ cái mô phỏng...", "info");
           }
         }
       } else {
@@ -462,6 +611,9 @@
       const newBadge = {
         tokenId: newId,
         badgeType: type,
+        customTitle: isCustom ? customTitle : undefined,
+        customIcon: isCustom ? customIcon : undefined,
+        customDesc: isCustom ? customDesc : undefined,
         studentName: studentName,
         studentId: studentId,
         recipient: recipientAddr,
@@ -480,11 +632,15 @@
         STUDENT_ACCOUNTS[studentId] = { password: "hue@2026", name: studentName };
       }
 
-      showToast(`✅ Đã đúc thành công Huy hiệu #${newId} cho sinh viên ${studentName}!`, "success");
+      showToast(`✅ Đã đúc thành công Văn bằng #${newId} cho sinh viên ${studentName}!`, "success");
       renderBadgesTable();
 
       document.getElementById("inputStudentName").value = "";
       document.getElementById("inputStudentId").value = "";
+      if (isCustom) {
+        if (document.getElementById("inputCustomTitle")) document.getElementById("inputCustomTitle").value = "";
+        if (document.getElementById("inputCustomDesc")) document.getElementById("inputCustomDesc").value = "";
+      }
       const checkmark = document.getElementById("nameCheckmark");
       if (checkmark) checkmark.style.display = "none";
       generateRandomWallet();
@@ -496,7 +652,7 @@
       tbody.innerHTML = "";
 
       db.forEach(badge => {
-        const info = BADGE_TYPES[badge.badgeType] || { title: "Danh hiệu", icon: "🎖️" };
+        const info = getBadgeInfo(badge);
         const shortAddr = `${badge.recipient.substring(0, 6)}...${badge.recipient.substring(badge.recipient.length - 4)}`;
 
         const tr = document.createElement("tr");

@@ -15,7 +15,10 @@
     <!-- Navigation Bar -->
     <header class="page-top-nav">
       <div class="page-nav-breadcrumb">
-        <a href="index.html">🏠 Trang chủ</a>
+        <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+          <img src="/logo-hue-economics.png" alt="Logo ĐH Kinh tế Huế" class="nav-logo-img" onerror="this.style.display='none'">
+          <span style="opacity:0.7;">🏠 Trang chủ</span>
+        </a>
         <span>›</span>
         <strong>🎓 Cổng Sinh Viên</strong>
       </div>
@@ -263,7 +266,7 @@
       }
 
       badges.forEach(badge => {
-        const info = BADGE_TYPES[badge.badgeType] || { title: "Danh hiệu thành tích", icon: "🎖️", desc: "Thành tích học thuật và rèn luyện Đại học Huế." };
+        const info = getBadgeInfo(badge);
         const card = document.createElement("div");
         card.className = `badge-item-card ${badge.isRevoked ? 'revoked' : ''}`;
 
